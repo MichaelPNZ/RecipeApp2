@@ -27,7 +27,6 @@
             android:backgroundTint="@color/purple"
             android:text="@string/category_button" />
 
-
         <Button
             android:id="@+id/btnFavorite"
             style="@style/StyleNavButton"
@@ -41,6 +40,5 @@
             app:iconGravity="textEnd"/>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
