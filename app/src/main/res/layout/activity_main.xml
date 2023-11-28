@@ -4,15 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background_color"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginHorizontal="@dimen/space_main"
+        android:layout_marginBottom="@dimen/space_main_half"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnCategory"
+            style="@style/StyleNavButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="2dp"
+            android:backgroundTint="@color/purple"
+            android:text="@string/category_button" />
+
+        <Button
+            android:id="@+id/btnFavorite"
+            style="@style/StyleNavButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/favorite_button"
+            app:icon="@drawable/ic_heart_empty"
+            app:iconGravity="textEnd"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
