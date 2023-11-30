@@ -2,7 +2,8 @@ package com.example.recipeapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,13 +15,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(
-            R.id.mainContainer,
-            CategoriesListFragment()
-        )
-        fragmentTransaction.commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<CategoriesListFragment>(R.id.mainContainer)
+            }
+        }
     }
-
-
 }
