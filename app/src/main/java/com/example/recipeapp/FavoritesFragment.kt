@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.recipeapp.databinding.FragmentListCategoriesBinding
+import com.example.recipeapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment: Fragment() {
 
-    private lateinit var binding: FragmentListCategoriesBinding
+    private lateinit var binding: FragmentFavoritesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentListCategoriesBinding.inflate(
+        binding = FragmentFavoritesBinding.inflate(
             inflater,
             container,
             false
