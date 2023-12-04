@@ -2,8 +2,8 @@
 <resources>
 
     <style name="StyleTitle14" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/montserratalternates_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/montserrat_alternates_semibold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/white</item>
     </style>
@@ -12,7 +12,7 @@
         <item name="android:textAppearance">@style/StyleTitle14</item>
         <item name="android:paddingVertical">0dp</item>
         <item name="android:paddingHorizontal">0dp</item>
-        <item name="cornerRadius">10dp</item>
+        <item name="cornerRadius">@dimen/corner_radius_10dp</item>
     </style>
 
 </resources>
