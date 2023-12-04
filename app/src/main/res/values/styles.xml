@@ -15,4 +15,24 @@
         <item name="cornerRadius">@dimen/corner_radius_10dp</item>
     </style>
 
+    <style name="StyleTitle14VioletColor" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/montserrat_alternates_semibold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/violet</item>
+    </style>
+
+    <style name="StyleTitle24VioletColor" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/montserrat_alternates_semibold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/violet</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleTitle12GrayColor" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
 </resources>

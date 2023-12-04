@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+
     val fragment_version = "1.6.2"
 
     implementation("androidx.fragment:fragment-ktx:$fragment_version")

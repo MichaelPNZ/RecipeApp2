@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">RecipeApp</string>
-    <string name="category_button">КАТЕГОРИИ</string>
-    <string name="favorite_button">ИЗБРАННОЕ</string>
+    <string name="title_category">КАТЕГОРИИ</string>
+    <string name="title_favorite">ИЗБРАННОЕ</string>
     <string name="fragment_favorite">fragment_favorite</string>
     <string name="categories_list_fragment">categories_list_fragment</string>
+    <string name="mock_category">бургеры</string>
+    <string name="mock_description">Рецепты всех популярных видов бургеров</string>
 </resources>
