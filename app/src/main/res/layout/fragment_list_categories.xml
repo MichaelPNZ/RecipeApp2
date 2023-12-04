@@ -41,8 +41,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_drawable"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="10dp"
                 android:text="@string/title_category"
                 android:layout_marginStart="@dimen/space_main"
                 android:layout_marginBottom="@dimen/space_main"
