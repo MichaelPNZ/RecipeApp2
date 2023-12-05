@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:layout_marginEnd="2dp"
             android:backgroundTint="@color/purple"
-            android:text="@string/category_button" />
+            android:text="@string/title_category" />
 
         <Button
             android:id="@+id/btnFavorite"
@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:layout_marginStart="2dp"
             android:backgroundTint="@color/red"
-            android:text="@string/favorite_button"
+            android:text="@string/title_favorite"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"/>
 

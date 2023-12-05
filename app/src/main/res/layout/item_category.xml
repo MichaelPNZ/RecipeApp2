@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layout_marginHorizontal="@dimen/space_main_half"
+    android:layout_marginVertical="@dimen/space_main_half"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    app:cardCornerRadius="@dimen/corner_radius_10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@drawable/bcg_categories"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            style="@style/StyleTitle14VioletColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mock_category"
+            android:layout_marginTop="@dimen/space_main_half"
+            android:layout_marginStart="@dimen/space_main_half"
+            android:layout_marginEnd="@dimen/space_main_half"/>
+
+        <TextView
+            style="@style/StyleTitle12GrayColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/mock_description"
+            android:layout_marginTop="@dimen/space_main_half"
+            android:layout_marginStart="@dimen/space_main_half"
+            android:layout_marginEnd="@dimen/space_main_half"
+            android:layout_marginBottom="@dimen/space_main_half"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
