@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Category
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment: Fragment() {
 
+    private lateinit var recyclerView: RecyclerView
     private lateinit var binding: FragmentListCategoriesBinding
     private var categoryList = mutableListOf<Category>()
 
@@ -36,4 +38,14 @@ class CategoriesListFragment: Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecycler()
+    }
+
+    private fun initRecycler() {
+        val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
+        recyclerView.findViewById<RecyclerView>(R.id.rvCategories)
+        recyclerView.adapter = categoriesListAdapter
+    }
 }

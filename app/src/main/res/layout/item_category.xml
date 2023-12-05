@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvCategoryItem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:layout_marginHorizontal="@dimen/space_main_half"
     android:layout_marginVertical="@dimen/space_main_half"
     android:background="?attr/selectableItemBackground"
@@ -17,12 +17,14 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/ivCategoryImage"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:background="@drawable/bcg_categories"
             tools:ignore="ContentDescription"/>
 
         <TextView
+            android:id="@+id/tvCategoryName"
             style="@style/StyleTitle14VioletColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
             android:layout_marginEnd="@dimen/space_main_half"/>
 
         <TextView
+            android:id="@+id/tvCategoryDescription"
             style="@style/StyleTitle12GrayColor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
