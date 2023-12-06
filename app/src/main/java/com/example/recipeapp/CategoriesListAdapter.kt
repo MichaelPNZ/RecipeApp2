@@ -17,6 +17,7 @@ class CategoriesListAdapter(
     private val fragment: CategoriesListFragment
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cvCategory: CardView
         val tvCategoryTitle: TextView

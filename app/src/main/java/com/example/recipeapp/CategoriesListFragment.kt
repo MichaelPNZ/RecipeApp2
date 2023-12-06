@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Category
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment: Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var binding: FragmentListCategoriesBinding
     private var categoryList: List<Category> = mutableListOf(
         Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
@@ -42,7 +40,7 @@ class CategoriesListFragment: Fragment() {
     }
 
     private fun initRecycler() {
-        recyclerView = binding.rvCategories
+        val recyclerView = binding.rvCategories
         val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
         recyclerView.adapter = categoriesListAdapter
     }
