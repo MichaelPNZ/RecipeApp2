@@ -39,10 +39,10 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/space_main_half"
         android:layout_marginVertical="@dimen/space_main_half"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         tools:itemCount="6"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_category"
-        tools:spanCount="2">
+        tools:listitem="@layout/item_category">
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

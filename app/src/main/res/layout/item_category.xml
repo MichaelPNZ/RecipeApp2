@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:background="@drawable/bcg_categories"
+            android:scaleType="centerCrop"
             tools:ignore="ContentDescription"/>
 
         <TextView
