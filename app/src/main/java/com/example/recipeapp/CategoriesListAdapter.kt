@@ -39,15 +39,20 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
-        viewHolder.tvCategoryTitle.text = currentItem.title
-        viewHolder.tvCategoryDescription.text = currentItem.description
-
         try {
             val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.ivCategoryImage.setImageDrawable(drawable)
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+        }
+
+        with(viewHolder) {
+            tvCategoryTitle.text = currentItem.title
+            tvCategoryDescription.text = currentItem.description
+            cvCategory.setOnClickListener {
+
+            }
         }
 
     }
