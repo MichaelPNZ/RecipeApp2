@@ -7,8 +7,9 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/space_main_half"
     android:layout_marginVertical="@dimen/space_main_half"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
+    android:foreground = "?selectableItemBackground"
+    android:clickable = "true"
+    android:focusable = "true"
     app:cardCornerRadius="@dimen/corner_radius_10dp">
 
     <LinearLayout
@@ -40,10 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/mock_description"
-            android:layout_marginTop="@dimen/space_main_half"
-            android:layout_marginStart="@dimen/space_main_half"
-            android:layout_marginEnd="@dimen/space_main_half"
-            android:layout_marginBottom="@dimen/space_main_half"/>
+            android:layout_margin="@dimen/space_main_half"/>
 
     </LinearLayout>
 

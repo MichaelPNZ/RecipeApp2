@@ -14,7 +14,7 @@ import java.io.InputStream
 
 class CategoriesListAdapter(
     private val dataSet: List<Category>,
-    private val fragment: CategoriesListFragment
+    private val fragment: CategoriesListFragment,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
 
