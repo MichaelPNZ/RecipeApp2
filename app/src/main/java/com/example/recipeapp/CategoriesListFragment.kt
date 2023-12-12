@@ -11,7 +11,14 @@ import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 class CategoriesListFragment: Fragment() {
 
     private lateinit var binding: FragmentListCategoriesBinding
-    private var categoryList = mutableListOf<Category>()
+    private var categoryList: List<Category> = mutableListOf(
+        Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
+        Category(1, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
+        Category(2, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
+        Category(3, "Рыба", "Печеная, жареная, сушеная, любая рыба на твой вкус", "fish.png"),
+        Category(4, "Супы", "От классики до экзотики: мир в одной тарелке", "soup.png"),
+        Category(5, "Салаты", "Хрустящий калейдоскоп под соусом вдохновения", "salad.png"),
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,16 +31,17 @@ class CategoriesListFragment: Fragment() {
             false
         )
 
-        categoryList = mutableListOf(
-            Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
-            Category(1, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
-            Category(2, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
-            Category(3, "Рыба", "Печеная, жареная, сушеная, любая рыба на твой вкус", "fish.png"),
-            Category(4, "Супы", "От классики до экзотики: мир в одной тарелке", "soup.png"),
-            Category(5, "Салаты", "Хрустящий калейдоскоп под соусом вдохновения", "salad.png"),
-        )
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecycler()
+    }
+
+    private fun initRecycler() {
+        val recyclerView = binding.rvCategories
+        val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
+        recyclerView.adapter = categoriesListAdapter
+    }
 }

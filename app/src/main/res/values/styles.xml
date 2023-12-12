@@ -35,6 +35,7 @@
     <style name="StyleTitle12GrayColor" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/gray</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
     </style>
 
 </resources>
