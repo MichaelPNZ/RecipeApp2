@@ -32,7 +32,6 @@ class CategoriesListFragment: Fragment() {
             container,
             false
         )
-
         return binding.root
     }
 
