@@ -69,7 +69,5 @@ class CategoriesListAdapter(
 
     override fun getItemCount() = dataSet.size
 
-
-
 }
 
