@@ -11,6 +11,10 @@ class RecipesListFragment: Fragment() {
 
     private lateinit var binding: FragmentListRecipesBinding
 
+    private var categoryId: Int? = null
+    private var categoryName: Int? = null
+    private var categoryImageUrl: Int? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,6 +26,15 @@ class RecipesListFragment: Fragment() {
             false
         )
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+       arguments?.let {
+           categoryId = it.getInt(CategoriesListFragment.ARG_CATEGORY_ID)
+           categoryName= it.getInt(CategoriesListFragment.ARG_CATEGORY_NAME)
+           categoryImageUrl = it.getInt(CategoriesListFragment.ARG_CATEGORY_IMAGE_URL)
+       }
     }
 
 }
