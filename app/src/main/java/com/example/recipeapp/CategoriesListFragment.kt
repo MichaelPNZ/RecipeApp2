@@ -42,6 +42,20 @@ class CategoriesListFragment: Fragment() {
     private fun initRecycler() {
         val recyclerView = binding.rvCategories
         val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
+        categoriesListAdapter.setOnItemClickListener(object :
+            CategoriesListAdapter.OnItemClickListener{
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
+        })
         recyclerView.adapter = categoriesListAdapter
+    }
+
+    private fun openRecipesByCategoryId(categoryId: Int) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.recipesFragment, RecipesListFragment())
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
