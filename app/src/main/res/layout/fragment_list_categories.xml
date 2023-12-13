@@ -13,7 +13,7 @@
         android:layout_height="224dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/headerImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bcg_categories"
@@ -22,14 +22,15 @@
 
         <TextView
             style="@style/StyleTitle24VioletColor"
+            android:id="@+id/tvCategoryNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_main"
             android:layout_marginBottom="@dimen/space_main"
             android:background="@drawable/shape_drawable"
             android:text="@string/title_category"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView" />
+            app:layout_constraintBottom_toBottomOf="@+id/headerImageView"
+            app:layout_constraintStart_toStartOf="@+id/headerImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
