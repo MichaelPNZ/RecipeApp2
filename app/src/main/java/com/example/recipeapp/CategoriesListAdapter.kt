@@ -61,7 +61,7 @@ class CategoriesListAdapter(
             tvCategoryTitle.text = currentItem.title
             tvCategoryDescription.text = currentItem.description
             cvCategory.setOnClickListener {
-                itemClickListener?.onItemClick(dataSet.indexOf(currentItem))
+                itemClickListener?.onItemClick(currentItem.id)
             }
         }
 
