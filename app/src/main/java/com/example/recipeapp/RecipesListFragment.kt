@@ -1,6 +1,6 @@
 package com.example.recipeapp
 
-import android.annotation.SuppressLint
+
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +14,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
+import java.io.InputStream
 
 class RecipesListFragment: Fragment() {
 
@@ -48,10 +49,9 @@ class RecipesListFragment: Fragment() {
            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
        }
 
-        val headerImageView: ImageView = view.findViewById(R.id.headerImageView)
-        val categoryNameTextView: TextView = view.findViewById(R.id.tvCategoryNameTextView)
+        val headerImageView: ImageView = binding.ivHeaderRecipeCategory
+        val categoryNameTextView: TextView = binding.tvHeaderRecipeCategory
 
-//        headerImageView.setImageDrawable(resources.assets.open(categoryImageUrl))
         categoryNameTextView.text = categoryName
         try {
             val inputStream: InputStream? = context?.assets?.open(categoryImageUrl.toString())
