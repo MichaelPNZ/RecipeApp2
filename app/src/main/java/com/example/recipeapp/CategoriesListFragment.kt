@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.recipeapp.data.Category
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
@@ -52,9 +54,25 @@ class CategoriesListFragment: Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
+        val categoryName = categoryList[categoryId].title
+        val categoryImageUrl = categoryList[categoryId].imageUrl
+
+        val bundle = Bundle().apply {
+            putInt(ARG_CATEGORY_ID, categoryId)
+            putString(ARG_CATEGORY_NAME, categoryName)
+            putString(ARG_CATEGORY_IMAGE_URL, categoryImageUrl)
+        }
+
         parentFragmentManager.commit {
-            replace<RecipesListFragment>(R.id.mainContainer)
+            replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
             setReorderingAllowed(true)
         }
+
+    }
+
+    companion object {
+        const val ARG_CATEGORY_ID = "category_id"
+        const val ARG_CATEGORY_NAME = "category_name"
+        const val ARG_CATEGORY_IMAGE_URL = "category_image_url"
     }
 }
