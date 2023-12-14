@@ -48,6 +48,13 @@ class RecipesListFragment: Fragment() {
 
 //        headerImageView.setImageDrawable(resources.assets.open(categoryImageUrl))
         categoryNameTextView.text = categoryName
+        try {
+            val inputStream: InputStream? = context?.assets?.open(categoryImageUrl.toString())
+            val drawable = Drawable.createFromStream(inputStream, null)
+            headerImageView.setImageDrawable(drawable)
+        } catch (ex: Exception) {
+            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+        }
     }
 
 }
