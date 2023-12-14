@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 import java.io.InputStream
 
@@ -20,6 +23,8 @@ class RecipesListFragment: Fragment() {
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
+
+    private val recipesList: List<Recipe> = STUB_RECIPES.burgerRecipes
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +59,25 @@ class RecipesListFragment: Fragment() {
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
+        initRecycler()
     }
 
+    private fun initRecycler() {
+        val recyclerView = binding.rvRecipes
+        val recipesListAdapter = RecipesListAdapter(recipesList, this)
+        recipesListAdapter.setOnItemClickListener(object :
+        RecipesListAdapter.OnItemClickListener{
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
+        })
+        recyclerView.adapter = recipesListAdapter
+    }
+
+    private fun openRecipesByCategoryId(categoryId: Int) {
+        parentFragmentManager.commit {
+            replace<RecipeFragment>(R.id.mainContainer)
+            setReorderingAllowed(true)
+        }
+    }
 }
