@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.recipeapp.data.Category
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
@@ -30,7 +32,6 @@ class CategoriesListFragment: Fragment() {
             container,
             false
         )
-
         return binding.root
     }
 
@@ -42,6 +43,19 @@ class CategoriesListFragment: Fragment() {
     private fun initRecycler() {
         val recyclerView = binding.rvCategories
         val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
+        categoriesListAdapter.setOnItemClickListener(object :
+            CategoriesListAdapter.OnItemClickListener{
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
+        })
         recyclerView.adapter = categoriesListAdapter
+    }
+
+    private fun openRecipesByCategoryId(categoryId: Int) {
+        parentFragmentManager.commit {
+            replace<RecipesListFragment>(R.id.mainContainer)
+            setReorderingAllowed(true)
+        }
     }
 }
