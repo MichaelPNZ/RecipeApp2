@@ -14,8 +14,18 @@ import java.io.InputStream
 
 class RecipesListAdapter(
 private val dataSet: List<Recipe>,
-private val fragment: CategoriesListFragment,
+private val fragment: RecipesListFragment,
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
+
+    private var itemClickListener:OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(categoryId: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cvRecipe: CardView
@@ -48,6 +58,7 @@ private val fragment: CategoriesListFragment,
         with(viewHolder) {
             tvRecipeTitle.text = currentItem.title
             cvRecipe.setOnClickListener {
+                itemClickListener?.onItemClick(currentItem.id)
             }
         }
 
