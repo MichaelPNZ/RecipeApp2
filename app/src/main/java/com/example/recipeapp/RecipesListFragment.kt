@@ -48,8 +48,8 @@ class RecipesListFragment: Fragment() {
            categoryImageUrl = it.getString(CategoriesListFragment.ARG_CATEGORY_IMAGE_URL)
        }
 
-        val headerImageView: ImageView = view.findViewById(R.id.ivHeaderRecipeCategory)
-        val categoryNameTextView: TextView = view.findViewById(R.id.tvHeaderRecipeCategory)
+        val headerImageView: ImageView = binding.ivHeaderRecipeCategory
+        val categoryNameTextView: TextView = binding.tvHeaderRecipeCategory
 
         categoryNameTextView.text = categoryName
         try {
@@ -75,9 +75,21 @@ class RecipesListFragment: Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
+        val recipe = recipesList.find { it.id == categoryId }
+
+        val bundle = Bundle().apply {
+            putParcelable(ARG_RECIPE, recipe)
+        }
+
         parentFragmentManager.commit {
-            replace<RecipeFragment>(R.id.mainContainer)
+            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
             setReorderingAllowed(true)
         }
+
     }
+
+    companion object {
+        const val ARG_RECIPE = "recipe"
+    }
+
 }
