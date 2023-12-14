@@ -12,8 +12,8 @@ class RecipesListFragment: Fragment() {
     private lateinit var binding: FragmentListRecipesBinding
 
     private var categoryId: Int? = null
-    private var categoryName: Int? = null
-    private var categoryImageUrl: Int? = null
+    private var categoryName: String? = null
+    private var categoryImageUrl: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +32,8 @@ class RecipesListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
        arguments?.let {
            categoryId = it.getInt(CategoriesListFragment.ARG_CATEGORY_ID)
-           categoryName= it.getInt(CategoriesListFragment.ARG_CATEGORY_NAME)
-           categoryImageUrl = it.getInt(CategoriesListFragment.ARG_CATEGORY_IMAGE_URL)
+           categoryName= it.getString(CategoriesListFragment.ARG_CATEGORY_NAME)
+           categoryImageUrl = it.getString(CategoriesListFragment.ARG_CATEGORY_IMAGE_URL)
        }
     }
 
