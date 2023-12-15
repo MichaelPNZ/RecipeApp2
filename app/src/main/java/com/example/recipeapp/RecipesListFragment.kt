@@ -39,7 +39,6 @@ class RecipesListFragment: Fragment() {
         return binding.root
     }
 
-    @SuppressLint("DiscouragedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
