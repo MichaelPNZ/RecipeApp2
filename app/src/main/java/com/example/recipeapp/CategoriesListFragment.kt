@@ -32,6 +32,7 @@ class CategoriesListFragment: Fragment() {
             container,
             false
         )
+
         return binding.root
     }
 
@@ -53,9 +54,19 @@ class CategoriesListFragment: Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
+        val categoryName = categoryList[categoryId].title
+        val categoryImageUrl = categoryList[categoryId].imageUrl
+
+        val bundle = Bundle().apply {
+            putInt(ARG_CATEGORY_ID, categoryId)
+            putString(ARG_CATEGORY_NAME, categoryName)
+            putString(ARG_CATEGORY_IMAGE_URL, categoryImageUrl)
+        }
+
         parentFragmentManager.commit {
-            replace<RecipesListFragment>(R.id.mainContainer)
+            replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
             setReorderingAllowed(true)
         }
+
     }
 }
