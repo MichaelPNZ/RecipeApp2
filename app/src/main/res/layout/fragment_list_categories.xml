@@ -13,7 +13,7 @@
         android:layout_height="224dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivHeaderRecipeCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bcg_categories"
@@ -28,8 +28,8 @@
             android:layout_marginBottom="@dimen/space_main"
             android:background="@drawable/shape_drawable"
             android:text="@string/title_category"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView" />
+            app:layout_constraintBottom_toBottomOf="@+id/ivHeaderRecipeCategory"
+            app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipeCategory" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
