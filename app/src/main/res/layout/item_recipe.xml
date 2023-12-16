@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvRecipeItem"
     android:layout_width="match_parent"
@@ -8,7 +9,8 @@
     android:layout_marginVertical="@dimen/space_main_half"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?selectableItemBackground"
+    app:cardCornerRadius="@dimen/corner_radius_10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +23,7 @@
             android:layout_height="130dp"
             android:background="@drawable/bcg_categories"
             android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
         <TextView
             android:id="@+id/tvRecipeName"
@@ -29,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_main_half"
-            android:text="@string/mock_category" />
+            android:text="@string/mock_category"/>
 
     </LinearLayout>
 
