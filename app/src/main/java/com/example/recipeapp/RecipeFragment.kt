@@ -33,10 +33,9 @@ class RecipeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             recipe = if (Build.VERSION.SDK_INT >= 33) {
-                it.getParcelable(RecipesListFragment.ARG_RECIPE)
+                it.getParcelable(ARG_RECIPE, Recipe::class.java)
             } else {
-                @Suppress("DEPRECATION")
-                it.getParcelable(RecipesListFragment.ARG_RECIPE)
+                it.getParcelable(ARG_RECIPE)
             }
         }
 

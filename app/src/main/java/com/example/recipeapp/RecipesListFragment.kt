@@ -87,8 +87,5 @@ class RecipesListFragment: Fragment() {
             addToBackStack(null)
         }
 
-        companion object {
-            const val ARG_RECIPE = "recipe"
-        }
     }
 }
