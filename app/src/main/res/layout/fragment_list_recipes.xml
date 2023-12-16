@@ -21,15 +21,17 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            style="@style/StyleTitle24VioletColor"
             android:id="@+id/tvHeaderRecipeCategory"
+            style="@style/StyleTitle24VioletColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_main"
             android:layout_marginBottom="@dimen/space_main"
             android:background="@drawable/shape_drawable"
+            android:text="категория"
             app:layout_constraintBottom_toBottomOf="@+id/ivHeaderRecipeCategory"
-            app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipeCategory" />
+            app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipeCategory"
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -39,8 +41,9 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/space_main_half"
         android:layout_marginVertical="@dimen/space_main_half"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_recipe">
+
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

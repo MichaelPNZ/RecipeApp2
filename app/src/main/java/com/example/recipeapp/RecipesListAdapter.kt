@@ -1,6 +1,6 @@
 package com.example.recipeapp
 
-import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,8 +49,8 @@ private val fragment: RecipesListFragment,
         val currentItem = dataSet[position]
         try {
             val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
-            viewHolder.ivRecipeImage.setImageDrawable(drawable)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            viewHolder.ivRecipeImage.setImageBitmap(bitmap)
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
