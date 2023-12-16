@@ -1,7 +1,7 @@
 package com.example.recipeapp
 
 
-import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,10 +52,11 @@ class RecipesListFragment: Fragment() {
         val categoryNameTextView: TextView = binding.tvHeaderRecipeCategory
 
         categoryNameTextView.text = categoryName
+
         try {
             val inputStream: InputStream? = context?.assets?.open(categoryImageUrl.toString())
-            val drawable = Drawable.createFromStream(inputStream, null)
-            headerImageView.setImageDrawable(drawable)
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            headerImageView.setImageBitmap(bitmap)
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
@@ -78,6 +79,7 @@ class RecipesListFragment: Fragment() {
         parentFragmentManager.commit {
             replace<RecipeFragment>(R.id.mainContainer)
             setReorderingAllowed(true)
+            addToBackStack(null)
         }
     }
 }
