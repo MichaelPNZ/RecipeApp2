@@ -11,7 +11,6 @@ import com.example.recipeapp.data.Ingredient
 
 class IngredientsAdapter(
     private val dataSet: List<Ingredient>,
-    private val fragment: RecipeFragment,
 ) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

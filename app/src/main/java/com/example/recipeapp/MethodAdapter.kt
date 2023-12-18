@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.data.Recipe
 
 class MethodAdapter(
     private val dataSet: List<String>,
-    private val fragment: RecipeFragment,
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -66,10 +66,10 @@ class RecipeFragment : Fragment() {
 
     private fun initRecycler() {
         val ingredientsAdapter = recipe?.let {
-            IngredientsAdapter(it.ingredients, this)
+            IngredientsAdapter(it.ingredients)
         }
         val methodAdapter = recipe?.let {
-            MethodAdapter(it.method, this)
+            MethodAdapter(it.method)
         }
 
         binding.rvMethod.adapter = methodAdapter
