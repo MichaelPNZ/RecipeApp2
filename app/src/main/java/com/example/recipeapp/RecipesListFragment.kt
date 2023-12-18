@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -41,12 +42,16 @@ class RecipesListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+        initRecycler()
+    }
 
-       arguments?.let {
-           categoryId = it.getInt(ARG_CATEGORY_ID)
-           categoryName= it.getString(ARG_CATEGORY_NAME)
-           categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
-       }
+    private fun initUI() {
+        arguments?.let {
+            categoryId = it.getInt(ARG_CATEGORY_ID)
+            categoryName= it.getString(ARG_CATEGORY_NAME)
+            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
+        }
 
         val headerImageView: ImageView = binding.ivHeaderRecipeCategory
         val categoryNameTextView: TextView = binding.tvHeaderRecipeCategory
@@ -60,11 +65,9 @@ class RecipesListFragment: Fragment() {
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
-        initRecycler()
     }
 
     private fun initRecycler() {
-        val recyclerView = binding.rvRecipes
         val recipesListAdapter = RecipesListAdapter(recipesList, this)
         recipesListAdapter.setOnItemClickListener(object :
         RecipesListAdapter.OnItemClickListener{
@@ -72,14 +75,18 @@ class RecipesListFragment: Fragment() {
                 openRecipesByCategoryId(categoryId)
             }
         })
-        recyclerView.adapter = recipesListAdapter
+        binding.rvRecipes.adapter = recipesListAdapter
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
+        val recipe = recipesList.find { it.id == categoryId }
+
+        val bundle = bundleOf(ARG_RECIPE to recipe)
         parentFragmentManager.commit {
-            replace<RecipeFragment>(R.id.mainContainer)
+            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
             setReorderingAllowed(true)
             addToBackStack(null)
         }
+
     }
 }
