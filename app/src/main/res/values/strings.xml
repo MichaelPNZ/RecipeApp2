@@ -6,4 +6,7 @@
     <string name="categories_list_fragment">categories_list_fragment</string>
     <string name="mock_category">бургеры</string>
     <string name="mock_description">Рецепты всех популярных видов бургеров</string>
+    <string name="header_ingredients">ингредиенты</string>
+    <string name="cooking_method">способ приготовления</string>
+    <string name="portions">Порции:</string>
 </resources>

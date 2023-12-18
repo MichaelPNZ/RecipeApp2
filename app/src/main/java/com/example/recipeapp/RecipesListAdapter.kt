@@ -13,11 +13,11 @@ import com.example.recipeapp.data.Recipe
 import java.io.InputStream
 
 class RecipesListAdapter(
-private val dataSet: List<Recipe>,
-private val fragment: RecipesListFragment,
+    private val dataSet: List<Recipe>,
+    private val fragment: RecipesListFragment,
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
-    private var itemClickListener:OnItemClickListener? = null
+    private var itemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
         fun onItemClick(categoryId: Int)

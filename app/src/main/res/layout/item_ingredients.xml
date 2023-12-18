@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvIngredientsItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_main_half">
+
+        <TextView
+            android:id="@+id/tvIngredientDescription"
+            style="@style/StyleTitle14GrayColorCAPS"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mock_category" />
+
+        <TextView
+            android:id="@+id/tvIngredientQuantity"
+            style="@style/StyleTitle14GrayColorCAPS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="10 шт."
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

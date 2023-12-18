@@ -1,16 +1,20 @@
 package com.example.recipeapp
 
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
+import java.io.InputStream
 
-class RecipeFragment: Fragment() {
+class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeBinding
 
@@ -31,6 +35,11 @@ class RecipeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+        initRecycler()
+    }
+
+    private fun initUI() {
         arguments?.let {
             recipe = if (Build.VERSION.SDK_INT >= 33) {
                 it.getParcelable(ARG_RECIPE, Recipe::class.java)
@@ -39,7 +48,32 @@ class RecipeFragment: Fragment() {
             }
         }
 
-        val testText: TextView = binding.tvTestTextView
-        testText.text = recipe?.title
+        val headerImageView: ImageView = binding.ivHeaderRecipe
+        val recipeNameTextView: TextView = binding.tvHeaderRecipe
+
+        recipeNameTextView.text = recipe?.title
+        try {
+            val inputStream: InputStream? = context?.assets?.open(recipe?.imageUrl.toString())
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+            headerImageView.setImageBitmap(bitmap)
+        } catch (ex: Exception) {
+            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+        }
+
+        binding.rvIngredients.setDivider(R.drawable.divider_drawable)
+        binding.rvMethod.setDivider(R.drawable.divider_drawable)
     }
+
+    private fun initRecycler() {
+        val ingredientsAdapter = recipe?.let {
+            IngredientsAdapter(it.ingredients, this)
+        }
+        val methodAdapter = recipe?.let {
+            MethodAdapter(it.method, this)
+        }
+
+        binding.rvMethod.adapter = methodAdapter
+        binding.rvIngredients.adapter = ingredientsAdapter
+    }
+
 }
