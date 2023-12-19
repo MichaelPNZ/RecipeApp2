@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -22,6 +23,7 @@ class RecipeFragment : Fragment() {
     private lateinit var binding: FragmentRecipeBinding
 
     private var recipe: Recipe? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +55,14 @@ class RecipeFragment : Fragment() {
 
         val headerImageView: ImageView = binding.ivHeaderRecipe
         val recipeNameTextView: TextView = binding.tvHeaderRecipe
+        val addFavoritesButton: ImageButton = binding.btnAddFavorite
+        var isLiked = false
+
+        addFavoritesButton.setOnClickListener {
+            isLiked = !isLiked
+            val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
+            addFavoritesButton.setImageResource(imageResource)
+        }
 
         recipeNameTextView.text = recipe?.title
         try {

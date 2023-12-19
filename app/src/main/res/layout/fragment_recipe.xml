@@ -22,14 +22,19 @@
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAddFavorite"
+                style="@style/StyleHeartButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/space_main"
                 android:layout_marginEnd="@dimen/space_main"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="@+id/ivHeaderRecipe"
-                app:layout_constraintTop_toTopOf="@+id/ivHeaderRecipe" />
+                app:layout_constraintTop_toTopOf="@+id/ivHeaderRecipe"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_heart_empty" />
 
             <TextView
                 android:id="@+id/tvHeaderRecipe"
@@ -84,8 +89,8 @@
             </LinearLayout>
 
             <SeekBar
-                style="@style/StyleSeekBar"
                 android:id="@+id/seekBar"
+                style="@style/StyleSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6dp"
