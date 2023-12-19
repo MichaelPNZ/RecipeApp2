@@ -68,7 +68,7 @@
                 android:paddingHorizontal="@dimen/padding_horizontal_recyclerview"
                 android:paddingVertical="@dimen/padding_vertical_recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_ingredients" />
+                tools:listitem="@layout/item_ingredient" />
 
             <TextView
                 style="@style/StyleTitle20VioletColorHeader"
