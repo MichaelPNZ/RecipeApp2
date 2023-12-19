@@ -28,9 +28,8 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/space_main"
                 android:layout_marginEnd="@dimen/space_main"
-                android:background="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="@+id/ivHeaderRecipe"
-                app:layout_constraintTop_toTopOf="@+id/ivHeaderRecipe" />
+                app:layout_constraintTop_toTopOf="@+id/ivHeaderRecipe"/>
 
             <TextView
                 android:id="@+id/tvHeaderRecipe"

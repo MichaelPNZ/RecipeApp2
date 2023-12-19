@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
@@ -60,8 +62,8 @@ class RecipeFragment : Fragment() {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
 
-        binding.rvIngredients.setDivider(R.drawable.divider_drawable)
-        binding.rvMethod.setDivider(R.drawable.divider_drawable)
+        binding.rvIngredients.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.rvMethod.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
     private fun initRecycler() {

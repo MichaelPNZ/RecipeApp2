@@ -4,5 +4,4 @@
     <dimen name="space_main">16dp</dimen>
     <dimen name="space_main_half">8dp</dimen>
     <dimen name="corner_radius_10dp">10dp</dimen>
-    <dimen name="divider_height">1dp</dimen>
 </resources>
