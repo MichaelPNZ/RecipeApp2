@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="@dimen/space_main_half">
+        android:paddingTop="@dimen/space_main_half"
+        android:paddingBottom="@dimen/space_main_half">
 
         <TextView
             android:id="@+id/tvIngredientDescription"
