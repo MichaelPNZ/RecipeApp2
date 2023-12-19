@@ -46,44 +46,50 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            style="@style/StyleTitle20VioletColorHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_main"
-            android:layout_marginTop="@dimen/space_main"
-            android:text="@string/header_ingredients" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvIngredients"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_main"
             android:layout_marginVertical="@dimen/space_main"
-            android:background="@drawable/rounded_corners"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_ingredients" />
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/StyleTitle20VioletColorHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_main"
-            android:text="@string/cooking_method" />
+            <TextView
+                style="@style/StyleTitle20VioletColorHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_ingredients" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMethod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_main"
-            android:layout_marginVertical="@dimen/space_main"
-            android:background="@drawable/rounded_corners"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_method" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_main"
+                android:background="@drawable/rounded_corners"
+                android:paddingHorizontal="@dimen/padding_horizontal_recyclerview"
+                android:paddingVertical="@dimen/padding_vertical_recyclerview"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_ingredients" />
+
+            <TextView
+                style="@style/StyleTitle20VioletColorHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_main"
+                android:text="@string/cooking_method" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_main"
+                android:background="@drawable/rounded_corners"
+                android:paddingHorizontal="@dimen/padding_horizontal_recyclerview"
+                android:paddingVertical="@dimen/padding_vertical_recyclerview"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_method" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
