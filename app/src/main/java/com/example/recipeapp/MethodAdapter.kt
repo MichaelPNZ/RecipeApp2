@@ -33,7 +33,7 @@ class MethodAdapter(
         val currentItem = dataSet[position]
 
         with(viewHolder) {
-            tvMethodDescription.text = currentItem
+            tvMethodDescription.text = "${position + 1}. $currentItem"
         }
     }
 
