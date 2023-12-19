@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Ingredient
 
@@ -15,12 +14,10 @@ class IngredientsAdapter(
     private var quantity = 1
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val cvIngredients: CardView
         val tvIngredientDescription: TextView
         val tvIngredientQuantity: TextView
 
         init {
-            cvIngredients = view.findViewById(R.id.cvIngredientsItem)
             tvIngredientDescription = view.findViewById(R.id.tvIngredientDescription)
             tvIngredientQuantity = view.findViewById(R.id.tvIngredientQuantity)
         }
@@ -28,7 +25,7 @@ class IngredientsAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_ingredients, viewGroup, false)
+            .inflate(R.layout.item_ingredient, viewGroup, false)
         return ViewHolder(view)
     }
 

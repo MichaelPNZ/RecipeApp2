@@ -6,4 +6,5 @@
     <dimen name="padding_horizontal_recyclerview">12dp</dimen>
     <dimen name="padding_vertical_recyclerview">4dp</dimen>
     <dimen name="corner_radius_10dp">10dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
 </resources>
