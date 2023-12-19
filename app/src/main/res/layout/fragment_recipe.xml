@@ -49,8 +49,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_main"
             android:layout_marginHorizontal="@dimen/space_main"
+            android:layout_marginVertical="@dimen/space_main"
             android:orientation="vertical">
 
             <TextView
@@ -95,8 +95,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
                 android:layout_marginTop="@dimen/space_main"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="@dimen/padding_horizontal_recyclerview"
+                android:paddingVertical="@dimen/padding_vertical_recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_ingredients" />
 
@@ -113,8 +113,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corners"
                 android:layout_marginTop="@dimen/space_main"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
+                android:paddingHorizontal="@dimen/padding_horizontal_recyclerview"
+                android:paddingVertical="@dimen/padding_vertical_recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_method" />
 

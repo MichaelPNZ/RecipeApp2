@@ -3,5 +3,7 @@
     <dimen name="space_button">4dp</dimen>
     <dimen name="space_main">16dp</dimen>
     <dimen name="space_main_half">8dp</dimen>
+    <dimen name="padding_horizontal_recyclerview">12dp</dimen>
+    <dimen name="padding_vertical_recyclerview">4dp</dimen>
     <dimen name="corner_radius_10dp">10dp</dimen>
 </resources>
