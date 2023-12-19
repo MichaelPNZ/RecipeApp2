@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvMethodItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/space_main_half"
+    android:paddingBottom="@dimen/space_main_half">
+
+    <TextView
+        android:id="@+id/tvMethodDescription"
+        style="@style/StyleTitle14GrayColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mock_category" />
+
+</LinearLayout>
