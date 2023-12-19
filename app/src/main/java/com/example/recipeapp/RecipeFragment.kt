@@ -1,7 +1,6 @@
 package com.example.recipeapp
 
 import android.graphics.BitmapFactory
-import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
@@ -62,33 +61,16 @@ class RecipeFragment : Fragment() {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
 
-        binding.rvIngredients.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val position = parent.getChildAdapterPosition(view)
-                if (position != parent.adapter?.itemCount?.minus(1)) {
-                    outRect.bottom = 1
-                }
-            }
-        })
+        val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
+        val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }
 
-        binding.rvMethod.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                val position = parent.getChildAdapterPosition(view)
-                if (position != parent.adapter?.itemCount?.minus(1)) {
-                    outRect.bottom = 1
-                }
-            }
-        })
+        val itemDecoration = dividerColor?.let {
+            SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
+        }
+        itemDecoration?.let {
+            binding.rvIngredients.addItemDecoration(it)
+            binding.rvMethod.addItemDecoration(it)
+        }
     }
 
     private fun initRecycler() {

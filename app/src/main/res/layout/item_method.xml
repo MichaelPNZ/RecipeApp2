@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cvMethodItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/space_main_half"
+    android:paddingBottom="@dimen/space_main_half">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvMethodDescription"
+        style="@style/StyleTitle14GrayColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/space_main_half"
-        android:paddingBottom="@dimen/space_main_half">
+        android:layout_height="wrap_content"
+        android:text="@string/mock_category" />
 
-        <TextView
-            android:id="@+id/tvMethodDescription"
-            style="@style/StyleTitle14GrayColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mock_category" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

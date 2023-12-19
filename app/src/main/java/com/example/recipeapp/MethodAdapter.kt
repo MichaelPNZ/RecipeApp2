@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 class MethodAdapter(
@@ -13,11 +12,9 @@ class MethodAdapter(
 ) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val cvMethod: CardView
         val tvMethodDescription: TextView
 
         init {
-            cvMethod = view.findViewById(R.id.cvMethodItem)
             tvMethodDescription = view.findViewById(R.id.tvMethodDescription)
         }
     }
