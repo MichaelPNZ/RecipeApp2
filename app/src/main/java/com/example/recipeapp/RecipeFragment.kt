@@ -1,6 +1,7 @@
 package com.example.recipeapp
 
 import android.graphics.BitmapFactory
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
@@ -62,8 +62,33 @@ class RecipeFragment : Fragment() {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
 
-        binding.rvIngredients.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        binding.rvMethod.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.rvIngredients.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                val position = parent.getChildAdapterPosition(view)
+                if (position != parent.adapter?.itemCount?.minus(1)) {
+                    outRect.bottom = 1
+                }
+            }
+        })
+
+        binding.rvMethod.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                val position = parent.getChildAdapterPosition(view)
+                if (position != parent.adapter?.itemCount?.minus(1)) {
+                    outRect.bottom = 1
+                }
+            }
+        })
     }
 
     private fun initRecycler() {
