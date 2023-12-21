@@ -8,20 +8,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.recipeapp.data.Category
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
-class CategoriesListFragment: Fragment() {
+class CategoriesListFragment : Fragment() {
 
     private lateinit var binding: FragmentListCategoriesBinding
-    private var categoryList: List<Category> = mutableListOf(
-        Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
-        Category(1, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
-        Category(2, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
-        Category(3, "Рыба", "Печеная, жареная, сушеная, любая рыба на твой вкус", "fish.png"),
-        Category(4, "Супы", "От классики до экзотики: мир в одной тарелке", "soup.png"),
-        Category(5, "Салаты", "Хрустящий калейдоскоп под соусом вдохновения", "salad.png"),
-    )
+
+    private var categoryList = STUB.getCategories()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +39,7 @@ class CategoriesListFragment: Fragment() {
         val recyclerView = binding.rvCategories
         val categoriesListAdapter = CategoriesListAdapter(categoryList, this)
         categoriesListAdapter.setOnItemClickListener(object :
-            CategoriesListAdapter.OnItemClickListener{
+            CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
                 openRecipesByCategoryId(categoryId)
             }
