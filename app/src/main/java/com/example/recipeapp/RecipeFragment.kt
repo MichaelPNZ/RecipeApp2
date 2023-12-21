@@ -1,6 +1,7 @@
 package com.example.recipeapp
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -115,6 +116,14 @@ class RecipeFragment : Fragment() {
 
         binding.rvMethod.adapter = methodAdapter
         binding.rvIngredients.adapter = ingredientsAdapter
+    }
+
+    private fun saveFavorites(set: Set<Recipe>) {
+        val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+//        with (sharedPrefs.edit()) {
+//            putInt(getString(R.string.saved_high_score_key), newHighScore)
+//            apply()
+//        }
     }
 
 }
