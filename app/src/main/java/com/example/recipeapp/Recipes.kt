@@ -1,10 +1,35 @@
 package com.example.recipeapp
 
+import com.example.recipeapp.data.Category
 import com.example.recipeapp.data.Ingredient
 import com.example.recipeapp.data.Recipe
 
-object STUB_RECIPES {
-    val burgerRecipes = listOf(
+object STUB {
+
+    // получть все категории
+    fun getCategories(): List<Category> = burgerCategories
+
+    // получить список рецептов по id категории
+    fun getRecipesByCategoryId(categoryId: Int): List<Recipe> =
+        if (categoryId == 0) burgerRecipes
+        else listOf()
+
+    // получить рецепт по id рецепта
+    fun getRecipeById(recipeId: Int): Recipe = burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
+
+    // получить список рецептов по списку id рецептов
+    fun getRecipesByIds(ids: Set<Int>): List<Recipe> = burgerRecipes.filter { ids.contains(it.id) }
+
+    private val burgerCategories = listOf(
+        Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
+        Category(1, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
+        Category(2, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
+        Category(3, "Рыба", "Печеная, жареная, сушеная, любая рыба на твой вкус", "fish.png"),
+        Category(4, "Супы", "От классики до экзотики: мир в одной тарелке", "soup.png"),
+        Category(5, "Салаты", "Хрустящий калейдоскоп под соусом вдохновения", "salad.png"),
+    )
+
+    private val burgerRecipes = listOf(
         Recipe(
             id = 0,
             title = "Классический гамбургер",
