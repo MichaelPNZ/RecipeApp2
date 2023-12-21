@@ -2,6 +2,7 @@ package com.example.recipeapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -22,9 +23,9 @@ import java.io.InputStream
 class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeBinding
+    private lateinit var sharedPrefs: SharedPreferences
 
     private var recipe: Recipe? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,12 +119,20 @@ class RecipeFragment : Fragment() {
         binding.rvIngredients.adapter = ingredientsAdapter
     }
 
-    private fun saveFavorites(set: Set<Recipe>) {
-        val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-//        with (sharedPrefs.edit()) {
-//            putInt(getString(R.string.saved_high_score_key), newHighScore)
-//            apply()
-//        }
+    private fun saveFavorites(favorites: Set<String>) {
+        sharedPrefs = activity?.getSharedPreferences(
+            APP_PREFERENCES,
+            Context.MODE_PRIVATE
+        ) ?: return
+        with(sharedPrefs.edit()) {
+            putStringSet(APP_PREFERENCES_KEY, favorites)
+            apply()
+        }
+    }
+
+    private fun getFavorites(): MutableSet<String> {
+        val storedFavorites: Set<String>? = sharedPrefs.getStringSet(APP_PREFERENCES_KEY, null)
+        return HashSet(storedFavorites ?: emptySet())
     }
 
 }
