@@ -52,15 +52,12 @@ class RecipesListFragment : Fragment() {
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
         }
 
-        val headerImageView: ImageView = binding.ivHeaderRecipeCategory
-        val categoryNameTextView: TextView = binding.tvHeaderRecipeCategory
-
-        categoryNameTextView.text = categoryName
+        binding.tvHeaderRecipeCategory.text = categoryName
 
         try {
             val inputStream: InputStream? = context?.assets?.open(categoryImageUrl.toString())
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            headerImageView.setImageBitmap(bitmap)
+            binding.ivHeaderRecipeCategory.setImageBitmap(bitmap)
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
@@ -68,9 +65,7 @@ class RecipesListFragment : Fragment() {
 
     private fun initRecycler() {
         val recipesListAdapter = categoryId?.let {
-            recipesList.getRecipesByCategoryId(
-                it
-            )
+            recipesList.getRecipesByCategoryId(it)
         }?.let { RecipesListAdapter(it, this) }
         recipesListAdapter?.setOnItemClickListener(object :
             RecipesListAdapter.OnItemClickListener {
