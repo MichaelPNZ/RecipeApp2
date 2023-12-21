@@ -104,7 +104,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    fun getFavorites(): MutableSet<String> {
+    private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(
             PREF_NAME,
             Context.MODE_PRIVATE
@@ -133,5 +133,6 @@ class RecipeFragment : Fragment() {
             val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
             addFavoritesButton.setImageResource(imageResource)
         }
+        println(checkIsFavorites)
     }
 }
