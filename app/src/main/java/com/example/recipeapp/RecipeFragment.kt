@@ -1,6 +1,5 @@
 package com.example.recipeapp
 
-import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -50,8 +48,6 @@ class RecipeFragment : Fragment() {
             }
         }
 
-        val headerImageView: ImageView = binding.ivHeaderRecipe
-        val recipeNameTextView: TextView = binding.tvHeaderRecipe
         val addFavoritesButton: ImageButton = binding.btnAddFavorite
         var isLiked = false
 
@@ -61,8 +57,8 @@ class RecipeFragment : Fragment() {
             addFavoritesButton.setImageResource(imageResource)
         }
         binding.tvHeaderRecipe.text = recipe?.title
+        binding.tvHeaderRecipe.text = recipe?.title
 
-        recipeNameTextView.text = recipe?.title
         try {
             val inputStream: InputStream? = context?.assets?.open(recipe?.imageUrl.toString())
             val bitmap = BitmapFactory.decodeStream(inputStream)
