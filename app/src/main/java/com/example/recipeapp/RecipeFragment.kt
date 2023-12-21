@@ -78,9 +78,8 @@ class RecipeFragment : Fragment() {
         }
 
         val seekBar = binding.root.findViewById<SeekBar>(R.id.seekBar)
-        val ingredientsCountChooseSeekbar = IngredientsCountChooseSeekbar(
-            seekBar,
-        ) { count ->
+
+        IngredientsCountChooseSeekbar(seekBar) { count ->
             binding.tvSeekBarQuantity.text = (count).toString()
             ingredientsAdapter?.updateIngredients(count)
         }
