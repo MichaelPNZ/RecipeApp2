@@ -13,11 +13,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.recipeapp.data.Recipe
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 import java.io.InputStream
 
-class RecipesListFragment: Fragment() {
+class RecipesListFragment : Fragment() {
 
     private lateinit var binding: FragmentListRecipesBinding
 
@@ -25,7 +24,7 @@ class RecipesListFragment: Fragment() {
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
 
-    private val recipesList: List<Recipe> = STUB_RECIPES.burgerRecipes
+    private val recipesList = STUB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +48,7 @@ class RecipesListFragment: Fragment() {
     private fun initUI() {
         arguments?.let {
             categoryId = it.getInt(ARG_CATEGORY_ID)
-            categoryName= it.getString(ARG_CATEGORY_NAME)
+            categoryName = it.getString(ARG_CATEGORY_NAME)
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
         }
 
@@ -68,9 +67,13 @@ class RecipesListFragment: Fragment() {
     }
 
     private fun initRecycler() {
-        val recipesListAdapter = RecipesListAdapter(recipesList, this)
-        recipesListAdapter.setOnItemClickListener(object :
-        RecipesListAdapter.OnItemClickListener{
+        val recipesListAdapter = categoryId?.let {
+            recipesList.getRecipesByCategoryId(
+                it
+            )
+        }?.let { RecipesListAdapter(it, this) }
+        recipesListAdapter?.setOnItemClickListener(object :
+            RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
                 openRecipesByCategoryId(categoryId)
             }
@@ -79,7 +82,7 @@ class RecipesListFragment: Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val recipe = recipesList.find { it.id == categoryId }
+        val recipe = recipesList.getRecipeById(categoryId)
 
         val bundle = bundleOf(ARG_RECIPE to recipe)
         parentFragmentManager.commit {
