@@ -12,7 +12,7 @@ class IngredientsCountChooseSeekbar(
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        callback.invoke(progress + 1)
+        callback.invoke(progress)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
