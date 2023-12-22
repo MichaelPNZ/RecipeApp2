@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.data.Category
+import com.example.recipeapp.model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(

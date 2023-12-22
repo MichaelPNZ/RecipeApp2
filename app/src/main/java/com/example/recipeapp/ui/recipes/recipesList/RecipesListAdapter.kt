@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.data.Recipe
+import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
 class RecipesListAdapter(

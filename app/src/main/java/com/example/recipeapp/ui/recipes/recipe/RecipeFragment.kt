@@ -16,7 +16,7 @@ import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.R
-import com.example.recipeapp.data.Recipe
+import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
 
