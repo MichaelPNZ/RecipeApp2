@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -47,6 +48,15 @@ class RecipeFragment : Fragment() {
             }
         }
 
+        val addFavoritesButton: ImageButton = binding.btnAddFavorite
+        var isLiked = false
+
+        addFavoritesButton.setOnClickListener {
+            isLiked = !isLiked
+            val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
+            addFavoritesButton.setImageResource(imageResource)
+        }
+        binding.tvHeaderRecipe.text = recipe?.title
         binding.tvHeaderRecipe.text = recipe?.title
 
         try {

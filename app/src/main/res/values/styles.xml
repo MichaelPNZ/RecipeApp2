@@ -69,4 +69,9 @@
         <item name="android:progressDrawable">@drawable/shape_seekbar_progress</item>
     </style>
 
+    <style name="StyleHeartButton">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
 </resources>
