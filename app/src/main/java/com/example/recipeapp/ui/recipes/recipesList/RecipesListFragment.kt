@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.recipes.recipesList
 
 
 import android.graphics.BitmapFactory
@@ -11,7 +11,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.ARG_CATEGORY_ID
+import com.example.recipeapp.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.ARG_CATEGORY_NAME
+import com.example.recipeapp.ARG_RECIPE
+import com.example.recipeapp.R
+import com.example.recipeapp.STUB
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import java.io.InputStream
 
 class RecipesListFragment : Fragment() {
@@ -21,8 +28,6 @@ class RecipesListFragment : Fragment() {
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
-
-    private val recipesList = STUB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +68,7 @@ class RecipesListFragment : Fragment() {
 
     private fun initRecycler() {
         val recipesListAdapter = categoryId?.let {
-            recipesList.getRecipesByCategoryId(it)
+            STUB.getRecipesByCategoryId(it)
         }?.let { RecipesListAdapter(it, this) }
         recipesListAdapter?.setOnItemClickListener(object :
             RecipesListAdapter.OnItemClickListener {
@@ -75,7 +80,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val recipe = recipesList.getRecipeById(categoryId)
+        val recipe = STUB.getRecipeById(categoryId)
 
         val bundle = bundleOf(ARG_RECIPE to recipe)
         parentFragmentManager.commit {
