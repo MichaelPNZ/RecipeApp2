@@ -2,7 +2,7 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import androidx.lifecycle.ViewModel
 import com.example.recipeapp.R
-import com.example.recipeapp.data.Ingredient
+import com.example.recipeapp.model.Ingredient
 
 class RecipeViewModel : ViewModel() {
 

@@ -42,7 +42,6 @@ class FavoritesFragment: Fragment() {
 
     private fun initRecycler() {
         val allPreferences = getFavorites()
-        println(allPreferences)
         val allKey = allPreferences.map { it.toInt() }.toSet()
         val filteredRecipes = STUB.getRecipesByIds(allKey)
 
