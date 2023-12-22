@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.recipes.recipesFavorite
 
 import android.content.Context
 import android.os.Bundle
@@ -9,12 +9,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.FAVORITES_KEY
+import com.example.recipeapp.data.PREF_NAME
+import com.example.recipeapp.R
+import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
+import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
+import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
 
 class FavoritesFragment: Fragment() {
 
     private lateinit var binding: FragmentFavoritesBinding
-    private var recipesList = STUB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +44,7 @@ class FavoritesFragment: Fragment() {
         val allPreferences = getFavorites()
         println(allPreferences)
         val allKey = allPreferences.map { it.toInt() }.toSet()
-        val filteredRecipes = recipesList.getRecipesByIds(allKey)
+        val filteredRecipes = STUB.getRecipesByIds(allKey)
 
         val favoritesListAdapter = RecipesListAdapter(filteredRecipes, this)
     favoritesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
@@ -53,7 +59,7 @@ class FavoritesFragment: Fragment() {
     }
 
     private fun openRecipeByRecipeId(categoryId: Int) {
-        val recipe = recipesList.getRecipeById(categoryId)
+        val recipe = STUB.getRecipeById(categoryId)
         val bundle = bundleOf(ARG_RECIPE to recipe)
         parentFragmentManager.commit {
             replace<RecipeFragment>(R.id.mainContainer, args = bundle)

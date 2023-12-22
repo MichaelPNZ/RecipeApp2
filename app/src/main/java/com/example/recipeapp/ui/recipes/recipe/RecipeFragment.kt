@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -12,7 +12,11 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.recipeapp.data.Recipe
+import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.FAVORITES_KEY
+import com.example.recipeapp.data.PREF_NAME
+import com.example.recipeapp.R
+import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
 
@@ -116,7 +120,9 @@ class RecipeFragment : Fragment() {
     private fun addFavorites() {
         val addFavoritesButton: ImageButton = binding.btnAddFavorite
         val checkIsFavorites = getFavorites()
-        val buttonImage = if (checkIsFavorites.contains(recipe?.id.toString())) R.drawable.ic_heart else R.drawable.ic_heart_empty
+        val buttonImage =
+            if (checkIsFavorites.contains(recipe?.id.toString())) R.drawable.ic_heart
+            else R.drawable.ic_heart_empty
         addFavoritesButton.setImageResource(buttonImage)
 
         addFavoritesButton.setOnClickListener {

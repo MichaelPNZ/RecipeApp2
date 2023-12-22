@@ -1,6 +1,6 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.categories
 
-import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.data.Recipe
+import com.example.recipeapp.R
+import com.example.recipeapp.model.Category
 import java.io.InputStream
 
-class RecipesListAdapter(
-    private val dataSet: List<Recipe>,
-    private val fragment: Fragment,
-) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
+class CategoriesListAdapter(
+    private val dataSet: List<Category>,
+    private val fragment: CategoriesListFragment,
+) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     private var itemClickListener: OnItemClickListener? = null
 
@@ -29,20 +29,22 @@ class RecipesListAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val cvRecipe: CardView
-        val tvRecipeTitle: TextView
-        val ivRecipeImage: ImageView
+        val cvCategory: CardView
+        val tvCategoryTitle: TextView
+        val tvCategoryDescription: TextView
+        val ivCategoryImage: ImageView
 
         init {
-            cvRecipe = view.findViewById(R.id.cvRecipeItem)
-            tvRecipeTitle = view.findViewById(R.id.tvRecipeName)
-            ivRecipeImage = view.findViewById(R.id.ivRecipeImage)
+            cvCategory = view.findViewById(R.id.cvCategoryItem)
+            tvCategoryTitle = view.findViewById(R.id.tvCategoryName)
+            tvCategoryDescription = view.findViewById(R.id.tvCategoryDescription)
+            ivCategoryImage = view.findViewById(R.id.ivCategoryImage)
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_recipe, viewGroup, false)
+            .inflate(R.layout.item_category, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -50,15 +52,16 @@ class RecipesListAdapter(
         val currentItem = dataSet[position]
         try {
             val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            viewHolder.ivRecipeImage.setImageBitmap(bitmap)
+            val drawable = Drawable.createFromStream(inputStream, null)
+            viewHolder.ivCategoryImage.setImageDrawable(drawable)
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
 
         with(viewHolder) {
-            tvRecipeTitle.text = currentItem.title
-            cvRecipe.setOnClickListener {
+            tvCategoryTitle.text = currentItem.title
+            tvCategoryDescription.text = currentItem.description
+            cvCategory.setOnClickListener {
                 itemClickListener?.onItemClick(currentItem.id)
             }
         }
@@ -68,3 +71,4 @@ class RecipesListAdapter(
     override fun getItemCount() = dataSet.size
 
 }
+
