@@ -1,8 +1,4 @@
-package com.example.recipeapp
-
-import com.example.recipeapp.data.Category
-import com.example.recipeapp.data.Ingredient
-import com.example.recipeapp.data.Recipe
+package com.example.recipeapp.data
 
 object STUB {
 
