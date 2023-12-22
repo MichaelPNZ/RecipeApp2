@@ -1,5 +1,6 @@
 package com.example.recipeapp
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -48,14 +49,6 @@ class RecipeFragment : Fragment() {
             }
         }
 
-        val addFavoritesButton: ImageButton = binding.btnAddFavorite
-        var isLiked = false
-
-        addFavoritesButton.setOnClickListener {
-            isLiked = !isLiked
-            val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
-            addFavoritesButton.setImageResource(imageResource)
-        }
         binding.tvHeaderRecipe.text = recipe?.title
         binding.tvHeaderRecipe.text = recipe?.title
 
@@ -77,6 +70,8 @@ class RecipeFragment : Fragment() {
             binding.rvIngredients.addItemDecoration(it)
             binding.rvMethod.addItemDecoration(it)
         }
+
+        addFavorites()
     }
 
     private fun initRecycler() {
@@ -98,4 +93,45 @@ class RecipeFragment : Fragment() {
         binding.rvIngredients.adapter = ingredientsAdapter
     }
 
+    private fun saveFavorites(favorites: Set<String>) {
+        val sharedPrefs = activity?.getSharedPreferences(
+            PREF_NAME,
+            Context.MODE_PRIVATE
+        ) ?: return
+        with(sharedPrefs.edit()) {
+            putStringSet(FAVORITES_KEY, favorites)
+            apply()
+        }
+    }
+
+    private fun getFavorites(): MutableSet<String> {
+        val sharedPrefs = activity?.getSharedPreferences(
+            PREF_NAME,
+            Context.MODE_PRIVATE
+        )
+        val storedFavorites: Set<String>? = sharedPrefs?.getStringSet(FAVORITES_KEY, null)
+        return HashSet(storedFavorites ?: emptySet())
+    }
+
+    private fun addFavorites() {
+        val addFavoritesButton: ImageButton = binding.btnAddFavorite
+        val checkIsFavorites = getFavorites()
+        val buttonImage = if (checkIsFavorites.contains(recipe?.id.toString())) R.drawable.ic_heart else R.drawable.ic_heart_empty
+        addFavoritesButton.setImageResource(buttonImage)
+
+        addFavoritesButton.setOnClickListener {
+            val allPreferences = getFavorites()
+            val isLiked: Boolean
+            if (allPreferences.contains(recipe?.id.toString())) {
+                isLiked = false
+                allPreferences.remove(recipe?.id.toString())
+            } else {
+                isLiked = true
+                allPreferences.add(recipe?.id.toString())
+            }
+            saveFavorites(allPreferences)
+            val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
+            addFavoritesButton.setImageResource(imageResource)
+        }
+    }
 }
