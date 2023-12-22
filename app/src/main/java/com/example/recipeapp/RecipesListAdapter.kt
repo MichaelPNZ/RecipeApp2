@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.data.Recipe
 import java.io.InputStream
 
 class RecipesListAdapter(
     private val dataSet: List<Recipe>,
-    private val fragment: RecipesListFragment,
+    private val fragment: Fragment,
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     private var itemClickListener: OnItemClickListener? = null

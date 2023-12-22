@@ -2,7 +2,7 @@
     <string name="app_name">RecipeApp</string>
     <string name="title_category">КАТЕГОРИИ</string>
     <string name="title_favorite">ИЗБРАННОЕ</string>
-    <string name="fragment_favorite">fragment_favorite</string>
+    <string name="fragment_favorite">Вы еще не добавили ни одного рецепта в избранное</string>
     <string name="categories_list_fragment">categories_list_fragment</string>
     <string name="mock_category">бургеры</string>
     <string name="mock_description">Рецепты всех популярных видов бургеров</string>
@@ -10,4 +10,5 @@
     <string name="cooking_method">способ приготовления</string>
     <string name="portions">Порции:</string>
     <string name="portion_header">Порции:</string>
+    <string name="favorites">ИЗБРАННОЕ</string>
 </resources>
