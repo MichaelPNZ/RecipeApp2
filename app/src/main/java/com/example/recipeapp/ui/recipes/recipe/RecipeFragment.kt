@@ -16,7 +16,7 @@ import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.R
-import com.example.recipeapp.data.Recipe
+import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
 
@@ -127,17 +127,14 @@ class RecipeFragment : Fragment() {
 
         addFavoritesButton.setOnClickListener {
             val allPreferences = getFavorites()
-            val isLiked: Boolean
             if (allPreferences.contains(recipe?.id.toString())) {
-                isLiked = false
+                addFavoritesButton.setImageResource(R.drawable.ic_heart_empty)
                 allPreferences.remove(recipe?.id.toString())
             } else {
-                isLiked = true
+                addFavoritesButton.setImageResource(R.drawable.ic_heart)
                 allPreferences.add(recipe?.id.toString())
             }
             saveFavorites(allPreferences)
-            val imageResource = if (isLiked) R.drawable.ic_heart else R.drawable.ic_heart_empty
-            addFavoritesButton.setImageResource(imageResource)
         }
         println(checkIsFavorites)
     }

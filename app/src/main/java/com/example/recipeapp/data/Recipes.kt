@@ -1,5 +1,9 @@
 package com.example.recipeapp.data
 
+import com.example.recipeapp.model.Category
+import com.example.recipeapp.model.Ingredient
+import com.example.recipeapp.model.Recipe
+
 object STUB {
 
     // получть все категории
