@@ -9,11 +9,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.recipeapp.ARG_RECIPE
-import com.example.recipeapp.FAVORITES_KEY
-import com.example.recipeapp.PREF_NAME
+import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.FAVORITES_KEY
+import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.R
-import com.example.recipeapp.STUB
+import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import com.example.recipeapp.ui.recipes.recipesList.RecipesListAdapter
