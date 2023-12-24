@@ -7,7 +7,8 @@ class RecipeViewModel : ViewModel() {
 
     data class RecipeUIState(
         var recipe: Recipe? = null,
-        val isFavorite: Boolean? = null,
+        val isFavorite: Boolean = false,
+        val quantity: Int = 3,
     )
 
 }
