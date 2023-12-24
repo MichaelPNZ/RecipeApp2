@@ -7,7 +7,7 @@ import com.example.recipeapp.model.Recipe
 object STUB {
 
     // получть все категории
-    fun getCategories(): List<Category> = burgerCategories
+    fun getCategories(): List<Category> = categories
 
     // получить список рецептов по id категории
     fun getRecipesByCategoryId(categoryId: Int): List<Recipe> =
@@ -20,7 +20,7 @@ object STUB {
     // получить список рецептов по списку id рецептов
     fun getRecipesByIds(ids: Set<Int>): List<Recipe> = burgerRecipes.filter { ids.contains(it.id) }
 
-    private val burgerCategories = listOf(
+    private val categories = listOf(
         Category(0, "Бургеры", "Рецепты всех популярных видов бургеров", "burger.png"),
         Category(1, "Десерты", "Самые вкусные рецепты десертов специально для вас", "dessert.png"),
         Category(2, "Пицца", "Пицца на любой вкус и цвет. Лучшая подборка для тебя", "pizza.png"),
