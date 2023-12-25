@@ -1,8 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipe
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import androidx.fragment.app.viewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import java.io.InputStream
 
 class RecipeFragment : Fragment() {
 
@@ -46,14 +43,7 @@ class RecipeFragment : Fragment() {
 
     private fun initUI(state: RecipeViewModel.RecipeUIState) {
         binding.tvHeaderRecipe.text = state.recipe?.title.toString()
-
-        try {
-            val inputStream: InputStream? = context?.assets?.open(state.recipe?.imageUrl.toString())
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            binding.ivHeaderRecipe.setImageBitmap(bitmap)
-        } catch (ex: Exception) {
-            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
-        }
+        binding.ivHeaderRecipe.setImageDrawable(state.recipeImage)
 
         val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
         val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }

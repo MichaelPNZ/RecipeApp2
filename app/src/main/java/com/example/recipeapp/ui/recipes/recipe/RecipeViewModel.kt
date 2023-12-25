@@ -2,6 +2,8 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +11,7 @@ import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
+import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -21,16 +24,31 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         var recipe: Recipe? = null,
         var isFavorite: Boolean = false,
         var portionsCount: Int = 1,
+        var recipeImage: Drawable? = null,
     )
 
     fun loadRecipe(recipeId: Int) {
         // TODO: "load from network"
         val recipe: Recipe = STUB.getRecipeById(recipeId)
-        _recipeUIState.value = RecipeUIState(
-            recipe = recipe,
-            isFavorite = getFavorites().contains(recipeId.toString()),
-            portionsCount = _recipeUIState.value?.portionsCount ?: 1
-        )
+        try {
+            val inputStream: InputStream? = appContext.assets?.open(recipe.imageUrl)
+            val drawable = Drawable.createFromStream(inputStream, null)
+            _recipeUIState.value = RecipeUIState(
+                recipe = recipe,
+                isFavorite = getFavorites().contains(recipeId.toString()),
+                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
+                recipeImage = drawable
+            )
+        } catch (ex: Exception) {
+            _recipeUIState.value = RecipeUIState(
+                recipe = recipe,
+                isFavorite = getFavorites().contains(recipeId.toString()),
+                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
+                recipeImage = null
+            )
+            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+        }
+
     }
 
     fun onFavoritesClicked() {
