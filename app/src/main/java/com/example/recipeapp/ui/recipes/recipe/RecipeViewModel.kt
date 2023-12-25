@@ -67,6 +67,14 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         saveFavorites(allPreferences)
     }
 
+    fun onChangePortions(progress: Int) {
+        val currentRecipeUIState = _recipeUIState.value ?: return
+        val updatedRecipeUIState = currentRecipeUIState.copy(
+            portionsCount = progress
+        )
+        _recipeUIState.value = updatedRecipeUIState
+    }
+
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = appContext.getSharedPreferences(
             PREF_NAME,

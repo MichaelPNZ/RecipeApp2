@@ -37,7 +37,6 @@ class RecipeFragment : Fragment() {
         viewModel.loadRecipe(recipeId)
         viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
             initUI(state)
-            initRecycler(state)
         }
     }
 
@@ -57,9 +56,7 @@ class RecipeFragment : Fragment() {
         }
 
         addFavorites(state)
-    }
 
-    private fun initRecycler(state: RecipeViewModel.RecipeUIState) {
         val ingredientsAdapter = state.recipe?.let {
             IngredientsAdapter(it.ingredients)
         }
@@ -69,11 +66,10 @@ class RecipeFragment : Fragment() {
 
         val seekBar = binding.root.findViewById<SeekBar>(R.id.seekBar)
 
-        IngredientsCountChooseSeekbar(seekBar) { count ->
-            binding.tvSeekBarQuantity.text = (count).toString()
-            ingredientsAdapter?.updateIngredients(count)
-        }
+        IngredientsCountChooseSeekbar(seekBar, viewModel)
+        ingredientsAdapter?.updateIngredients(state.portionsCount)
 
+        binding.tvSeekBarQuantity.text = state.portionsCount.toString()
         binding.rvMethod.adapter = methodAdapter
         binding.rvIngredients.adapter = ingredientsAdapter
     }
