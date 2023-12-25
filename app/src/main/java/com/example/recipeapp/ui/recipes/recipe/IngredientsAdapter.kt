@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Ingredient
 
-class IngredientsAdapter(
-    private val dataSet: List<Ingredient>,
-) : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+
+    var dataSet: List<Ingredient> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     private var quantity = 1
 
@@ -45,11 +49,6 @@ class IngredientsAdapter(
             tvIngredientQuantity.text = "$formattedQuantity ${currentItem.unitOfMeasure}"
         }
 
-    }
-
-    fun updateIngredients(progress: Int) {
-        quantity = progress
-        notifyDataSetChanged()
     }
 
     override fun getItemCount() = dataSet.size

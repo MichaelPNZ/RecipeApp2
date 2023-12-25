@@ -17,6 +17,8 @@ class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeBinding
     private val viewModel: RecipeViewModel by viewModels()
+    private val ingredientsAdapter = IngredientsAdapter()
+    private val methodAdapter = MethodAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,17 +59,13 @@ class RecipeFragment : Fragment() {
 
         addFavorites(state)
 
-        val ingredientsAdapter = state.recipe?.let {
-            IngredientsAdapter(it.ingredients)
-        }
-        val methodAdapter = state.recipe?.let {
-            MethodAdapter(it.method)
-        }
-
         val seekBar = binding.root.findViewById<SeekBar>(R.id.seekBar)
 
-        IngredientsCountChooseSeekbar(seekBar, viewModel)
-        ingredientsAdapter?.updateIngredients(state.portionsCount)
+        IngredientsCountChooseSeekbar(seekBar, viewModel) { progress ->
+            viewModel.onChangePortions(progress)
+        }
+        ingredientsAdapter.dataSet = state.recipe?.ingredients ?: return
+        methodAdapter.dataSet = state.recipe?.method ?: return
 
         binding.tvSeekBarQuantity.text = state.portionsCount.toString()
         binding.rvMethod.adapter = methodAdapter

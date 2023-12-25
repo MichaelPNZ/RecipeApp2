@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 
-class MethodAdapter(
-    private val dataSet: List<String>,
-) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
+class MethodAdapter : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
+
+    var dataSet: List<String> = emptyList()
+        set(value) {
+            field = value
+        }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvMethodDescription: TextView

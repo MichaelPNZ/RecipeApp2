@@ -4,8 +4,8 @@ import android.widget.SeekBar
 
 class IngredientsCountChooseSeekbar(
     seekBar: SeekBar,
-//    private val callback: (Int) -> Unit,
     private val viewModel: RecipeViewModel,
+    private val onChangeIngredients: (Int) -> Unit,
 ) : SeekBar.OnSeekBarChangeListener {
 
     init {
@@ -14,7 +14,7 @@ class IngredientsCountChooseSeekbar(
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         viewModel.onChangePortions(progress)
-//        callback.invoke(progress)
+        onChangeIngredients.invoke(progress)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
