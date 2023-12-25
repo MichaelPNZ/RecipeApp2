@@ -14,8 +14,8 @@ import androidx.fragment.app.replace
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.data.ARG_CATEGORY_NAME
-import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.R
+import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
@@ -80,9 +80,7 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val recipe = STUB.getRecipeById(categoryId)
-
-        val bundle = bundleOf(ARG_RECIPE to recipe)
+        val bundle = bundleOf(ARG_RECIPE_ID to categoryId)
         parentFragmentManager.commit {
             replace<RecipeFragment>(R.id.mainContainer, args = bundle)
             setReorderingAllowed(true)
