@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
@@ -24,6 +25,7 @@ class RecipeFragment : Fragment() {
 
     private lateinit var binding: FragmentRecipeBinding
     private var recipe: Recipe? = null
+    private val viewModel: RecipeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,10 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
+            Log.i("!!!", "isFavorite: ${state.isFavorite}")
+        }
+
         initUI()
         initRecycler()
     }
