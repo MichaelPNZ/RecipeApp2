@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,6 +41,7 @@ class RecipeFragment : Fragment() {
             initUI(state)
             initRecycler(state)
         }
+        addDecoration()
     }
 
     private fun initUI(state: RecipeViewModel.RecipeUIState) {
@@ -54,19 +54,7 @@ class RecipeFragment : Fragment() {
         } catch (ex: Exception) {
             Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
-
-        val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
-        val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }
-
-        val itemDecoration = dividerColor?.let {
-            SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
-        }
-        itemDecoration?.let {
-            binding.rvIngredients.addItemDecoration(it)
-            binding.rvMethod.addItemDecoration(it)
-        }
-
-        addFavorites(state)
+     addFavorites(state)
     }
 
     private fun initRecycler(state: RecipeViewModel.RecipeUIState) {
@@ -97,6 +85,19 @@ class RecipeFragment : Fragment() {
         addFavoritesButton.setImageResource(buttonImage)
         addFavoritesButton.setOnClickListener {
             viewModel.onFavoritesClicked()
+        }
+    }
+
+    private fun addDecoration() {
+        val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
+        val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }
+
+        val itemDecoration = dividerColor?.let {
+            SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
+        }
+        itemDecoration?.let {
+            binding.rvIngredients.addItemDecoration(it)
+            binding.rvMethod.addItemDecoration(it)
         }
     }
 }
