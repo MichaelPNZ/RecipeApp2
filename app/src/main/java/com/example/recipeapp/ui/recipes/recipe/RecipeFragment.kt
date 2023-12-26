@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,22 +37,12 @@ class RecipeFragment : Fragment() {
         viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
             initUI(state)
         }
+        addDecoration()
     }
 
     private fun initUI(state: RecipeViewModel.RecipeUIState) {
         binding.tvHeaderRecipe.text = state.recipe?.title.toString()
         binding.ivHeaderRecipe.setImageDrawable(state.recipeImage)
-
-        val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
-        val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }
-
-        val itemDecoration = dividerColor?.let {
-            SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
-        }
-        itemDecoration?.let {
-            binding.rvIngredients.addItemDecoration(it)
-            binding.rvMethod.addItemDecoration(it)
-        }
 
         addFavorites(state)
 
@@ -64,7 +53,7 @@ class RecipeFragment : Fragment() {
             MethodAdapter(it.method)
         }
 
-        val seekBar = binding.root.findViewById<SeekBar>(R.id.seekBar)
+        val seekBar = binding.seekBar
 
         IngredientsCountChooseSeekbar(seekBar, viewModel)
         ingredientsAdapter?.updateIngredients(state.portionsCount)
@@ -83,6 +72,19 @@ class RecipeFragment : Fragment() {
         addFavoritesButton.setImageResource(buttonImage)
         addFavoritesButton.setOnClickListener {
             viewModel.onFavoritesClicked()
+        }
+    }
+
+    private fun addDecoration() {
+        val dividerHeight = resources.getDimensionPixelSize(R.dimen.divider_height)
+        val dividerColor = context?.let { ContextCompat.getColor(it, R.color.dividerColor) }
+
+        val itemDecoration = dividerColor?.let {
+            SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
+        }
+        itemDecoration?.let {
+            binding.rvIngredients.addItemDecoration(it)
+            binding.rvMethod.addItemDecoration(it)
         }
     }
 }
