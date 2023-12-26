@@ -49,8 +49,6 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>()
             tvIngredientQuantity.text = "$formattedQuantity ${currentItem.unitOfMeasure}"
         }
 
-
-
     }
 
     fun updateIngredients(progress: Int) {
