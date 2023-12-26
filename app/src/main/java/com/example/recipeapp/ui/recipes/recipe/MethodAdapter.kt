@@ -11,9 +11,6 @@ import com.example.recipeapp.R
 class MethodAdapter : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     var dataSet: List<String> = emptyList()
-        set(value) {
-            field = value
-        }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvMethodDescription: TextView

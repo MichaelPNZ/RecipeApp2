@@ -52,7 +52,9 @@ class RecipeFragment : Fragment() {
 
         IngredientsCountChooseSeekbar(seekBar, viewModel) { progress ->
             viewModel.onChangePortions(progress)
+            ingredientsAdapter.updateIngredients(progress)
         }
+
         ingredientsAdapter.dataSet = state.recipe?.ingredients ?: return
         methodAdapter.dataSet = state.recipe?.method ?: return
 
