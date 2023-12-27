@@ -31,34 +31,34 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
-            initUI(state)
-        }
-        viewModel.loadRecipe(arguments?.getInt(ARG_RECIPE_ID) ?: return)
+        initUI()
         addDecoration()
     }
 
-    private fun initUI(state: RecipeViewModel.RecipeUIState) {
-        with(binding) {
-            tvHeaderRecipe.text = state.recipe?.title.toString()
-            ivHeaderRecipe.setImageDrawable(state.recipeImage)
+    private fun initUI() {
+        viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
+            with(binding) {
+                tvHeaderRecipe.text = state.recipe?.title.toString()
+                ivHeaderRecipe.setImageDrawable(state.recipeImage)
 
-            addFavorites(state)
+                addFavorites(state)
 
-            val seekBar = seekBar
+                val seekBar = seekBar
 
-            seekBar.setOnSeekBarChangeListener(IngredientsCountChooseSeekbar { progress ->
-                viewModel.onChangePortions(progress)
-                ingredientsAdapter.updateIngredients(progress)
-            })
+                seekBar.setOnSeekBarChangeListener(IngredientsCountChooseSeekbar { progress ->
+                    viewModel.onChangePortions(progress)
+                    ingredientsAdapter.updateIngredients(progress)
+                })
 
-            ingredientsAdapter.dataSet = state.recipe?.ingredients ?: return
-            methodAdapter.dataSet = state.recipe?.method ?: return
+                ingredientsAdapter.dataSet = state.recipe?.ingredients ?: emptyList()
+                methodAdapter.dataSet = state.recipe?.method ?: emptyList()
 
-            tvSeekBarQuantity.text = state.portionsCount.toString()
-            rvMethod.adapter = methodAdapter
-            rvIngredients.adapter = ingredientsAdapter
+                tvSeekBarQuantity.text = state.portionsCount.toString()
+                rvMethod.adapter = methodAdapter
+                rvIngredients.adapter = ingredientsAdapter
+            }
         }
+        viewModel.loadRecipe(arguments?.getInt(ARG_RECIPE_ID) ?: return)
     }
 
     private fun addFavorites(state: RecipeViewModel.RecipeUIState) {
