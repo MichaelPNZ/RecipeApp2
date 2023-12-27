@@ -1,6 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipe
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 
-class MethodAdapter : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
-
+class MethodAdapter(
     var dataSet: List<String> = emptyList()
+) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvMethodDescription: TextView
@@ -26,7 +25,6 @@ class MethodAdapter : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
         return ViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
 

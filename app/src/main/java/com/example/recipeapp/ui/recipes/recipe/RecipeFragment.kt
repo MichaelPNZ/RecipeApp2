@@ -14,7 +14,9 @@ import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
 
-    private lateinit var binding: FragmentRecipeBinding
+    private  val binding by lazy {
+        FragmentRecipeBinding.inflate(layoutInflater)
+    }
     private val viewModel: RecipeViewModel by viewModels()
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
@@ -24,43 +26,39 @@ class RecipeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRecipeBinding.inflate(
-            inflater,
-            container,
-            false
-        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recipeId = arguments?.getInt(ARG_RECIPE_ID) ?: return
-        viewModel.loadRecipe(recipeId)
         viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
             initUI(state)
         }
+        viewModel.loadRecipe(arguments?.getInt(ARG_RECIPE_ID) ?: return)
         addDecoration()
     }
 
     private fun initUI(state: RecipeViewModel.RecipeUIState) {
-        binding.tvHeaderRecipe.text = state.recipe?.title.toString()
-        binding.ivHeaderRecipe.setImageDrawable(state.recipeImage)
+        with(binding) {
+            tvHeaderRecipe.text = state.recipe?.title.toString()
+            ivHeaderRecipe.setImageDrawable(state.recipeImage)
 
-        addFavorites(state)
+            addFavorites(state)
 
-        val seekBar = binding.seekBar
+            val seekBar = seekBar
 
-        IngredientsCountChooseSeekbar(seekBar, viewModel) { progress ->
-            viewModel.onChangePortions(progress)
-            ingredientsAdapter.updateIngredients(progress)
+            seekBar.setOnSeekBarChangeListener(IngredientsCountChooseSeekbar { progress ->
+                viewModel.onChangePortions(progress)
+                ingredientsAdapter.updateIngredients(progress)
+            })
+
+            ingredientsAdapter.dataSet = state.recipe?.ingredients ?: return
+            methodAdapter.dataSet = state.recipe?.method ?: return
+
+            tvSeekBarQuantity.text = state.portionsCount.toString()
+            rvMethod.adapter = methodAdapter
+            rvIngredients.adapter = ingredientsAdapter
         }
-
-        ingredientsAdapter.dataSet = state.recipe?.ingredients ?: return
-        methodAdapter.dataSet = state.recipe?.method ?: return
-
-        binding.tvSeekBarQuantity.text = state.portionsCount.toString()
-        binding.rvMethod.adapter = methodAdapter
-        binding.rvIngredients.adapter = ingredientsAdapter
     }
 
     private fun addFavorites(state: RecipeViewModel.RecipeUIState) {
@@ -83,8 +81,11 @@ class RecipeFragment : Fragment() {
             SimpleDividerItemDecorationLastExcluded(dividerHeight, it)
         }
         itemDecoration?.let {
-            binding.rvIngredients.addItemDecoration(it)
-            binding.rvMethod.addItemDecoration(it)
+            with(binding) {
+                rvIngredients.addItemDecoration(it)
+                rvMethod.addItemDecoration(it)
+            }
+
         }
     }
 }

@@ -30,25 +30,23 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun loadRecipe(recipeId: Int) {
         // TODO: "load from network"
         val recipe: Recipe = STUB.getRecipeById(recipeId)
+        var drawable: Drawable? = null
+
         try {
             val inputStream: InputStream? = appContext.assets?.open(recipe.imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
+            drawable = Drawable.createFromStream(inputStream, null)
+        } catch (ex: Exception) {
+            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+        }
+
+        if (drawable != null) {
             _recipeUIState.value = RecipeUIState(
                 recipe = recipe,
                 isFavorite = getFavorites().contains(recipeId.toString()),
                 portionsCount = _recipeUIState.value?.portionsCount ?: 1,
                 recipeImage = drawable
             )
-        } catch (ex: Exception) {
-            _recipeUIState.value = RecipeUIState(
-                recipe = recipe,
-                isFavorite = getFavorites().contains(recipeId.toString()),
-                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
-                recipeImage = null
-            )
-            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
         }
-
     }
 
     fun onFavoritesClicked() {
