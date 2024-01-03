@@ -15,9 +15,14 @@ import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
 class RecipesListAdapter(
-    private val dataSet: List<Recipe>,
-    private val fragment: Fragment,
+    private val fragment: Fragment? = null,
 ) : RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
+
+    var dataSet: List<Recipe> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     private var itemClickListener: OnItemClickListener? = null
 
@@ -50,7 +55,7 @@ class RecipesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
         try {
-            val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
+            val inputStream: InputStream? = fragment?.context?.assets?.open(currentItem.imageUrl)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             viewHolder.ivRecipeImage.setImageBitmap(bitmap)
         } catch (ex: Exception) {
@@ -67,5 +72,4 @@ class RecipesListAdapter(
     }
 
     override fun getItemCount() = dataSet.size
-
 }

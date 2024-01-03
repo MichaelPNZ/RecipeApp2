@@ -8,15 +8,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val dataSet: List<Category>,
-    private val fragment: CategoriesListFragment,
+    private val fragment: Fragment? = null,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+
+    var dataSet: List<Category> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     private var itemClickListener: OnItemClickListener? = null
 
@@ -51,7 +57,7 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
         try {
-            val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
+            val inputStream: InputStream? = fragment?.context?.assets?.open(currentItem.imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.ivCategoryImage.setImageDrawable(drawable)
         } catch (ex: Exception) {
@@ -65,10 +71,8 @@ class CategoriesListAdapter(
                 itemClickListener?.onItemClick(currentItem.id)
             }
         }
-
     }
 
     override fun getItemCount() = dataSet.size
-
 }
 

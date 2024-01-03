@@ -14,7 +14,7 @@ import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
 
-    private  val binding by lazy {
+    private val binding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
     private val viewModel: RecipeViewModel by viewModels()
