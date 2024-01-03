@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.recipeapp.data.ARG_CATEGORY_ID
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
 
+    private val recipeListFragmentArgs: RecipesListFragmentArgs by navArgs()
     private val binding by lazy {
         FragmentListRecipesBinding.inflate(layoutInflater)
     }
@@ -48,7 +49,7 @@ class RecipesListFragment : Fragment() {
                 rvRecipes.adapter = recipesListAdapter
             }
         }
-        viewModel.loadRecipesList(arguments?.getInt(ARG_CATEGORY_ID) ?: return)
+        viewModel.loadRecipesList(recipeListFragmentArgs.category)
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {

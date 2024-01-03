@@ -86,7 +86,6 @@ class RecipeFragment : Fragment() {
                 rvIngredients.addItemDecoration(it)
                 rvMethod.addItemDecoration(it)
             }
-
         }
     }
 }

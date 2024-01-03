@@ -23,4 +23,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
             categoryList = categoryList
         )
     }
+
+    fun getCategoryById(categoryId: Int): Category? {
+        return STUB.getCategories().find { it.id == categoryId }
+    }
 }
