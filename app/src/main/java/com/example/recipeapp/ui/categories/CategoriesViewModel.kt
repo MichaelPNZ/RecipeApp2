@@ -12,14 +12,14 @@ class CategoriesViewModel : ViewModel() {
     val categoriesUIState: LiveData<CategoriesUIState>
         get() = _categoriesUIState
 
-    data class CategoriesUIState(
-        var categoryList: List<Category>? = null,
-    )
-
     fun loadCategories() {
         val categoryList = STUB.getCategories()
         _categoriesUIState.value = CategoriesUIState(
             categoryList = categoryList
         )
     }
+
+    data class CategoriesUIState(
+        var categoryList: List<Category> = emptyList(),
+    )
 }
