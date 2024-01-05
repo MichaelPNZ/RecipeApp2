@@ -17,10 +17,6 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesUIState: LiveData<FavoritesUIState>
         get() = _favoritesUIState
 
-    data class FavoritesUIState(
-        val recipe: List<Recipe>? = null,
-    )
-
     fun loadFavoritesRecipes() {
         val allPreferences = getFavorites()
         val allKey = allPreferences.map { it.toInt() }.toSet()
@@ -39,4 +35,8 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val storedFavorites: Set<String>? = sharedPrefs?.getStringSet(FAVORITES_KEY, null)
         return HashSet(storedFavorites ?: emptySet())
     }
+
+    data class FavoritesUIState(
+        val recipe: List<Recipe>? = null,
+    )
 }

@@ -20,13 +20,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     val recipeUIState: LiveData<RecipeUIState>
         get() = _recipeUIState
 
-    data class RecipeUIState(
-        var recipe: Recipe? = null,
-        var isFavorite: Boolean = false,
-        var portionsCount: Int = 1,
-        var recipeImage: Drawable? = null,
-    )
-
     fun loadRecipe(recipeId: Int) {
         // TODO: "load from network"
         val recipe: Recipe = STUB.getRecipeById(recipeId)
@@ -92,5 +85,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             apply()
         }
     }
+
+    data class RecipeUIState(
+        var recipe: Recipe? = null,
+        var isFavorite: Boolean = false,
+        var portionsCount: Int = 1,
+        var recipeImage: Drawable? = null,
+    )
 
 }
