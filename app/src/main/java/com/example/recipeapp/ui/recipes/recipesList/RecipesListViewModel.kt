@@ -17,13 +17,6 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
     val recipesListUIState: LiveData<RecipesListUIState>
         get() = _recipesListUIState
 
-
-    data class RecipesListUIState(
-        val categoryName: String? = null,
-        val categoryImage: Drawable? = null,
-        var recipesList: List<Recipe>? = null,
-    )
-
     fun loadRecipesList(recipeId: Int) {
         // TODO: "load from network"
         val recipesList: List<Recipe> = STUB.getRecipesByCategoryId(recipeId)
@@ -45,4 +38,10 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
             )
         }
     }
+
+    data class RecipesListUIState(
+        val categoryName: String? = null,
+        val categoryImage: Drawable? = null,
+        var recipesList: List<Recipe>? = null,
+    )
 }

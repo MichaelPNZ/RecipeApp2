@@ -15,7 +15,7 @@ import com.example.recipeapp.model.Category
 import java.io.InputStream
 
 class CategoriesListAdapter(
-    private val fragment: Fragment? = null,
+    private val fragment: Fragment,
 ) : RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     var dataSet: List<Category> = emptyList()
@@ -57,7 +57,7 @@ class CategoriesListAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
         try {
-            val inputStream: InputStream? = fragment?.context?.assets?.open(currentItem.imageUrl)
+            val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
             viewHolder.ivCategoryImage.setImageDrawable(drawable)
         } catch (ex: Exception) {
