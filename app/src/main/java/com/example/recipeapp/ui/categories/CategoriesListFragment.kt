@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.ui.recipes.recipesList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
 
@@ -52,12 +51,7 @@ class CategoriesListFragment : Fragment() {
 
     private fun openRecipesByCategoryId(categoryId: Int) {
         val bundle = bundleOf(ARG_CATEGORY_ID to categoryId)
-
-        parentFragmentManager.commit {
-            replace<RecipesListFragment>(R.id.mainContainer, args = bundle)
-            setReorderingAllowed(true)
-            addToBackStack(null)
-        }
-
+        val navController: NavController = findNavController()
+        navController.navigate(R.id.recipesListFragment, bundle)
     }
 }
