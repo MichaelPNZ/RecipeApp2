@@ -9,10 +9,10 @@ import com.example.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-
     private var _binding: ActivityMainBinding? = null
     private val binding
-        get() = _binding ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
+        get() = _binding
+            ?: throw IllegalStateException("Binding for ActivityMainBinding must not be null")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnCategory.setOnClickListener {
             val navController: NavController = findNavController(R.id.nav_host_fragment)
-            navController.navigate(R.id.categoriesListFragment2)
+            navController.navigate(R.id.categoriesListFragment)
         }
 
         binding.btnFavorite.setOnClickListener {
             val navController: NavController = findNavController(R.id.nav_host_fragment)
-            navController.navigate(R.id.favoritesFragment2)
+            navController.navigate(R.id.favoritesFragment)
         }
 
     }
