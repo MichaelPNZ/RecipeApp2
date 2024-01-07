@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.data.ARG_CATEGORY_ID
-import com.example.recipeapp.R
-import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
@@ -55,9 +51,7 @@ class RecipesListFragment : Fragment() {
         viewModel.loadRecipesList(arguments?.getInt(ARG_CATEGORY_ID) ?: return)
     }
 
-    private fun openRecipesByCategoryId(categoryId: Int) {
-        val bundle = bundleOf(ARG_RECIPE_ID to categoryId)
-        val navController: NavController = findNavController()
-        navController.navigate(R.id.recipeFragment, bundle)
+    private fun openRecipesByCategoryId(recipeId: Int) {
+        findNavController().navigate(RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeId))
     }
 }

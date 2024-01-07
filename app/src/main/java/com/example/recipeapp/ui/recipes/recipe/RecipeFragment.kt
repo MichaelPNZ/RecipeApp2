@@ -8,8 +8,8 @@ import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
-import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
 class RecipeFragment : Fragment() {
@@ -17,6 +17,7 @@ class RecipeFragment : Fragment() {
     private val binding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
+    private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
     private val viewModel: RecipeViewModel by viewModels()
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
@@ -58,7 +59,7 @@ class RecipeFragment : Fragment() {
                 rvIngredients.adapter = ingredientsAdapter
             }
         }
-        viewModel.loadRecipe(arguments?.getInt(ARG_RECIPE_ID) ?: return)
+        viewModel.loadRecipe(recipeFragmentArgs.recipeId)
     }
 
     private fun addFavorites(state: RecipeViewModel.RecipeUIState) {
