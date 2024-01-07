@@ -22,4 +22,8 @@ class CategoriesViewModel : ViewModel() {
     data class CategoriesUIState(
         var categoryList: List<Category> = emptyList(),
     )
+
+    fun getCategoryById(categoryId: Int): Category? {
+        return STUB.getCategories().find { it.id == categoryId }
+    }
 }

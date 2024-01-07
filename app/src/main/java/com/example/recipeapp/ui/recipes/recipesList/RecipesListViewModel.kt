@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.STUB
+import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
@@ -17,10 +18,9 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
     val recipesListUIState: LiveData<RecipesListUIState>
         get() = _recipesListUIState
 
-    fun loadRecipesList(recipeId: Int) {
+    fun loadRecipesList(category: Category) {
         // TODO: "load from network"
-        val recipesList: List<Recipe> = STUB.getRecipesByCategoryId(recipeId)
-        val category = STUB.getCategories()[recipeId]
+        val recipesList: List<Recipe> = STUB.getRecipesByCategoryId(category.id)
         var categoryDrawable: Drawable? = null
 
         try {
