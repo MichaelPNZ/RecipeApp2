@@ -50,6 +50,6 @@ class CategoriesListFragment : Fragment() {
     private fun openRecipesByCategoryId(categoryId: Int) {
         val category: Category = viewModel.getCategoryById(categoryId) ?: throw IllegalArgumentException("Category not found for ID: $categoryId")
         findNavController().navigate(CategoriesListFragmentDirections
-            .actionCategoriesListFragment2ToRecipesListFragment(category))
+            .actionCategoriesListFragmentToRecipesListFragment(category))
     }
 }
