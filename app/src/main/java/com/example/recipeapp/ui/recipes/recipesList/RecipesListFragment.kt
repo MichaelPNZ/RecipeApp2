@@ -52,7 +52,7 @@ class RecipesListFragment : Fragment() {
         viewModel.loadRecipesList(recipeListFragmentArgs.category)
     }
 
-    private fun openRecipesByCategoryId(categoryId: Int) {
-        findNavController().navigate(RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(categoryId))
+    private fun openRecipesByCategoryId(recipeId: Int) {
+        findNavController().navigate(RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeId))
     }
 }

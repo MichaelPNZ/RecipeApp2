@@ -50,7 +50,7 @@ class FavoritesFragment: Fragment() {
         viewModel.loadFavoritesRecipes()
     }
 
-    private fun openRecipeByRecipeId(categoryId: Int) {
-        findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragment2ToRecipeFragment(categoryId))
+    private fun openRecipeByRecipeId(recipeId: Int) {
+        findNavController().navigate(FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(recipeId))
     }
 }
