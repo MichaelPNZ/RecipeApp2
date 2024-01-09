@@ -25,12 +25,29 @@ class MainActivity : AppCompatActivity() {
         Log.i("!!!", "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}")
 
         val thread = Thread {
-            val url = URL("https://recipes.androidsprint.ru/api/category")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connect()
+            try {
+                val url = URL("https://recipes.androidsprint.ru/api/category")
+                val connection = url.openConnection() as HttpURLConnection
+                connection.connect()
 
-            Log.i("!!!", "Body: ${connection.inputStream.bufferedReader().readText()}")
-            Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
+                Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
+
+                val responseText = connection.inputStream.bufferedReader().readText()
+                val category = Json.decodeFromString<List<Category>>(responseText)
+                Log.i("!!!", "Received categories: $category")
+
+                category.forEach { category ->
+                    Log.i(
+                        "!!!",
+                        "CategoryID: ${category.id}," +
+                                " title: ${category.title}," +
+                                " description: ${category.description}," +
+                                " imageUrl: ${category.imageUrl} "
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
         thread.start()
 
@@ -47,48 +64,5 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.favoritesFragment)
         }
 
-        val responseString = """
-        [
-            {
-                "id": 0,
-                "title": "Бургеры",
-                "description": "Рецепты всех популярных видов бургеров",
-                "imageUrl": "burger.png"
-            },
-            {
-                "id": 1,
-                "title": "Десерты",
-                "description": "Самые вкусные рецепты десертов специально для вас",
-                "imageUrl": "dessert.png"
-            },
-            {
-                "id": 2,
-                "title": "Пицца",
-                "description": "Пицца на любой вкус и цвет. Лучшая подборка для тебя",
-                "imageUrl": "pizza.png"
-            },
-            {
-                "id": 3,
-                "title": "Рыба",
-                "description": "Печеная, жареная, сушеная, любая рыба на твой вкус",
-                "imageUrl": "fish.png"
-            },
-            {
-                "id": 4,
-                "title": "Супы",
-                "description": "От классики до экзотики: мир в одной тарелке",
-                "imageUrl": "soup.png"
-            },
-            {
-                "id": 5,
-                "title": "Салаты",
-                "description": "Хрустящий калейдоскоп под соусом вдохновения",
-                "imageUrl": "salad.png"
-            }
-        ]
-    """.trimIndent()
-
-        val category = Json.decodeFromString<List<Category>>(responseString)
-        println(category)
     }
 }
