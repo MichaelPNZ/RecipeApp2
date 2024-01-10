@@ -32,22 +32,15 @@ class MainActivity : AppCompatActivity() {
         for (id in 0..9) {
             threadPool.execute {
                 try {
-                    val url = URL("https://recipes.androidsprint.ru/api/category")
+                    val url = URL("https://recipes.androidsprint.ru/api/category/$id")
                     val connection = url.openConnection() as HttpURLConnection
                     connection.connect()
 
                     Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
 
                     val responseText = connection.inputStream.bufferedReader().readText()
-                    val category = json.decodeFromString<List<Category>>(responseText)[id]
-
-                    Log.i(
-                        "!!!",
-                        "CategoryID: ${category.id}," +
-                                " title: ${category.title}," +
-                                " description: ${category.description}," +
-                                " imageUrl: ${category.imageUrl} "
-                    )
+                    val category = json.decodeFromString<Category>(responseText)
+                    Log.i("!!!", "$category")
 
                 } catch (e: Exception) {
                     e.printStackTrace()
