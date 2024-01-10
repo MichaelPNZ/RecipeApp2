@@ -50,6 +50,7 @@ dependencies {
     val fragment_version = "1.6.2"
     val nav_version = "2.7.6"
 
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.core:core-ktx:1.12.0")
