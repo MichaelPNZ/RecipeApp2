@@ -40,10 +40,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
                 portionsCount = _recipeUIState.value?.portionsCount ?: 1,
                 recipeImage = drawable
             ))
-            Log.i("!!!", "${recipe}")
-            Log.i("!!!", "${_recipeUIState.value}")
         }
-
     }
 
     fun onFavoritesClicked() {
