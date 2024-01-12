@@ -9,16 +9,14 @@ import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
 import com.example.recipeapp.model.Category
 import kotlinx.serialization.json.Json
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.concurrent.Executors
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class MainActivity : AppCompatActivity() {
 
     private val json = Json {
         ignoreUnknownKeys = true
     }
-    private val threadPool = Executors.newFixedThreadPool(10)
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding
@@ -29,24 +27,21 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("!!!", "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}")
 
-        for (id in 0..9) {
-            threadPool.execute {
-                try {
-                    val url = URL("https://recipes.androidsprint.ru/api/category/$id")
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.connect()
+        val thread = Thread {
+            val client = OkHttpClient()
+            val request: Request = Request.Builder()
+                .url("https://recipes.androidsprint.ru/api/category")
+                .build()
 
-                    Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
+            Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
 
-                    val responseText = connection.inputStream.bufferedReader().readText()
-                    val category = json.decodeFromString<Category>(responseText)
-                    Log.i("!!!", "$category")
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            client.newCall(request).execute().use { response ->
+                val responseText = response.body?.string()
+                val category = responseText?.let { json.decodeFromString<List<Category>>(it) }
+                Log.i("!!!", "Category: $category")
             }
         }
+        thread.start()
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
