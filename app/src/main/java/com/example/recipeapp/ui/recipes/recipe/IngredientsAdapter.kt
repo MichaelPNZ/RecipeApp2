@@ -44,7 +44,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>()
         }
 
         if (doubleValue != null) {
-            val calculatedQuantity = currentItem.quantity.toDouble() * quantity
+            val calculatedQuantity = doubleValue * quantity
             val formattedQuantity = if (calculatedQuantity % 1 != 0.0) {
                 String.format("%.1f", calculatedQuantity)
             } else {
@@ -57,7 +57,7 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>()
         } else {
             with(viewHolder) {
                 tvIngredientDescription.text = currentItem.description
-                tvIngredientQuantity.text = "${currentItem.unitOfMeasure}"
+                tvIngredientQuantity.text = "${currentItem.quantity}"
             }
         }
     }

@@ -25,9 +25,9 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val allKey = allPreferences.map { it.toInt() }.toSet()
         viewModelScope.launch {
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
-            _favoritesUIState.value = FavoritesUIState(
+            _favoritesUIState.postValue(FavoritesUIState(
                 recipe = filteredRecipes,
-            )
+            ))
         }
     }
 

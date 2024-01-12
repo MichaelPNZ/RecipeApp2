@@ -38,8 +38,8 @@ class RecipesRepository {
     suspend fun getRecipesByIds(set: Set<Int>): List<Recipe>? {
         return withContext(Dispatchers.IO) {
             try {
-                val sortToString = set.map { it.toString() }
-                val recipes = recipeApiService.getRecipesByIds(sortToString.toString()).execute().body()
+                val sortToString = set.joinToString(separator = ",")
+                val recipes = recipeApiService.getRecipesByIds(sortToString).execute().body()
                 recipes
             } catch (e: Exception) {
                 Log.e("!!!", "Error fetching categories", e)
