@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
-import retrofit2.Call
 import retrofit2.Retrofit
 
 class RecipesRepository {
@@ -48,8 +47,16 @@ class RecipesRepository {
         }
     }
 
-    fun getCategoryById(id: String?): Call<Category> {
-        return recipeApiService.getCategoryById(id)
+    suspend fun getCategoryById(id: String?): Category? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val category = recipeApiService.getCategoryById(id).execute().body()
+                category
+            } catch (e: Exception) {
+                Log.e("!!!", "Error fetching categories", e)
+                null
+            }
+        }
     }
 
     suspend fun getRecipesByCategoryId(groupId: Int): List<Recipe>? {

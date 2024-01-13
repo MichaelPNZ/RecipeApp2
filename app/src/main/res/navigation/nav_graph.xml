@@ -43,7 +43,7 @@
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment" />
         <argument
-            android:name="category"
-            app:argType="com.example.recipeapp.model.Category" />
+            android:name="categoryId"
+            app:argType="integer" />
     </fragment>
 </navigation>
