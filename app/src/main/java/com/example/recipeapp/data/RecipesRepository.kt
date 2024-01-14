@@ -28,7 +28,7 @@ class RecipesRepository {
                 val recipe = recipeApiService.getRecipeById(id).execute().body()
                 recipe
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipeById", e)
                 null
             }
         }
@@ -41,7 +41,7 @@ class RecipesRepository {
                 val recipes = recipeApiService.getRecipesByIds(sortToString).execute().body()
                 recipes
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipesByIds", e)
                 null
             }
         }
@@ -53,7 +53,7 @@ class RecipesRepository {
                 val category = recipeApiService.getCategoryById(id).execute().body()
                 category
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching categoryById", e)
                 null
             }
         }
@@ -65,7 +65,7 @@ class RecipesRepository {
                 val recipes = recipeApiService.getRecipesByCategoryId(groupId).execute().body()
                 recipes
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipesByCategoryId", e)
                 null
             }
         }
