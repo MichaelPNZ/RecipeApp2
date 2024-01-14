@@ -7,38 +7,39 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
-import com.example.recipeapp.data.STUB
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val recipesRepository = RecipesRepository()
     private val appContext = application
     private val _recipeUIState = MutableLiveData<RecipeUIState>()
     val recipeUIState: LiveData<RecipeUIState>
         get() = _recipeUIState
 
     fun loadRecipe(recipeId: Int) {
-        // TODO: "load from network"
-        val recipe: Recipe = STUB.getRecipeById(recipeId)
-        var drawable: Drawable? = null
+        viewModelScope.launch {
+            val recipe = recipesRepository.getRecipeById(recipeId.toString())
+            var drawable: Drawable? = null
+            try {
+                val inputStream: InputStream? = recipe?.imageUrl?.let { appContext.assets?.open(it) }
+                drawable = Drawable.createFromStream(inputStream, null)
+            } catch (ex: Exception) {
+                Log.e("mylog", "Error: ${ex.stackTraceToString()}")
+            }
 
-        try {
-            val inputStream: InputStream? = appContext.assets?.open(recipe.imageUrl)
-            drawable = Drawable.createFromStream(inputStream, null)
-        } catch (ex: Exception) {
-            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
-        }
-
-        if (drawable != null) {
-            _recipeUIState.value = RecipeUIState(
+            _recipeUIState.postValue(RecipeUIState(
                 recipe = recipe,
                 isFavorite = getFavorites().contains(recipeId.toString()),
                 portionsCount = _recipeUIState.value?.portionsCount ?: 1,
                 recipeImage = drawable
-            )
+            ))
         }
     }
 
@@ -90,7 +91,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         var recipe: Recipe? = null,
         var isFavorite: Boolean = false,
         var portionsCount: Int = 1,
-        var recipeImage: Drawable? = null,
+        val recipeImage: Drawable? = null,
     )
 
 }

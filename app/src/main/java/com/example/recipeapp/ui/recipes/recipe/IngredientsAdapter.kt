@@ -37,18 +37,29 @@ class IngredientsAdapter : RecyclerView.Adapter<IngredientsAdapter.ViewHolder>()
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
 
-        val calculatedQuantity = currentItem.quantity.toDouble() * quantity
-        val formattedQuantity = if (calculatedQuantity % 1 != 0.0) {
-            String.format("%.1f", calculatedQuantity)
+        val doubleValue: Double? = try {
+            currentItem.quantity.toDouble()
+        } catch (e: NumberFormatException) {
+            null
+        }
+
+        if (doubleValue != null) {
+            val calculatedQuantity = doubleValue * quantity
+            val formattedQuantity = if (calculatedQuantity % 1 != 0.0) {
+                String.format("%.1f", calculatedQuantity)
+            } else {
+                calculatedQuantity.toInt().toString()
+            }
+            with(viewHolder) {
+                tvIngredientDescription.text = currentItem.description
+                tvIngredientQuantity.text = "$formattedQuantity ${currentItem.unitOfMeasure}"
+            }
         } else {
-            calculatedQuantity.toInt().toString()
+            with(viewHolder) {
+                tvIngredientDescription.text = currentItem.description
+                tvIngredientQuantity.text = "${currentItem.quantity}"
+            }
         }
-
-        with(viewHolder) {
-            tvIngredientDescription.text = currentItem.description
-            tvIngredientQuantity.text = "$formattedQuantity ${currentItem.unitOfMeasure}"
-        }
-
     }
 
     fun updateIngredients(progress: Int) {

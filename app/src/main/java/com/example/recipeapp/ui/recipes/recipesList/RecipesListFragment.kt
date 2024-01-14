@@ -49,7 +49,7 @@ class RecipesListFragment : Fragment() {
                 rvRecipes.adapter = recipesListAdapter
             }
         }
-        viewModel.loadRecipesList(recipeListFragmentArgs.category)
+        viewModel.loadRecipesList(recipeListFragmentArgs.categoryId)
     }
 
     private fun openRecipesByCategoryId(recipeId: Int) {

@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.model.Category
-import java.lang.IllegalArgumentException
 
 class CategoriesListFragment : Fragment() {
 
@@ -48,8 +46,7 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val category: Category = viewModel.getCategoryById(categoryId) ?: throw IllegalArgumentException("Category not found for ID: $categoryId")
         findNavController().navigate(CategoriesListFragmentDirections
-            .actionCategoriesListFragmentToRecipesListFragment(category))
+            .actionCategoriesListFragmentToRecipesListFragment(categoryId))
     }
 }
