@@ -1,7 +1,6 @@
 package com.example.recipeapp.ui.categories
 
-import android.graphics.drawable.Drawable
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Category
-import java.io.InputStream
 
 class CategoriesListAdapter(
     private val fragment: Fragment,
@@ -56,15 +55,16 @@ class CategoriesListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
-        try {
-            val inputStream: InputStream? = fragment.context?.assets?.open(currentItem.imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
-            viewHolder.ivCategoryImage.setImageDrawable(drawable)
-        } catch (ex: Exception) {
-            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
-        }
 
         with(viewHolder) {
+            Glide
+                .with(fragment)
+                .load(currentItem.imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.img_placeholder)
+                .error(R.drawable.img_error)
+                .into(ivCategoryImage)
+
             tvCategoryTitle.text = currentItem.title
             tvCategoryDescription.text = currentItem.description
             cvCategory.setOnClickListener {

@@ -1,7 +1,6 @@
 package com.example.recipeapp.ui.recipes.recipesList
 
-import android.graphics.BitmapFactory
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
-import java.io.InputStream
 
 class RecipesListAdapter(
     private val fragment: Fragment? = null,
@@ -54,21 +53,23 @@ class RecipesListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = dataSet[position]
-        try {
-            val inputStream: InputStream? = fragment?.context?.assets?.open(currentItem.imageUrl)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            viewHolder.ivRecipeImage.setImageBitmap(bitmap)
-        } catch (ex: Exception) {
-            Log.e("mylog", "Error: ${ex.stackTraceToString()}")
-        }
 
         with(viewHolder) {
+                if (fragment != null) {
+                    Glide
+                        .with(fragment)
+                        .load(currentItem.imageUrl)
+                        .centerCrop()
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(ivRecipeImage)
+                }
+
             tvRecipeTitle.text = currentItem.title
             cvRecipe.setOnClickListener {
                 itemClickListener?.onItemClick(currentItem.id)
             }
         }
-
     }
 
     override fun getItemCount() = dataSet.size

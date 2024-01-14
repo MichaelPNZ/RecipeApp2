@@ -18,6 +18,11 @@ class CategoriesViewModel : ViewModel() {
     fun loadCategories() {
         viewModelScope.launch {
             val categoryList = recipesRepository.getCategories()
+
+            categoryList?.forEach {
+                it.imageUrl = "https://recipes.androidsprint.ru/api/images/${it.imageUrl}"
+            }
+
             _categoriesUIState.value = categoryList?.let {
                 CategoriesUIState(
                     categoryList = it
@@ -29,9 +34,5 @@ class CategoriesViewModel : ViewModel() {
     data class CategoriesUIState(
         var categoryList: List<Category> = emptyList(),
     )
-
-    fun getCategoryById(categoryId: Int): Category? {
-        return _categoriesUIState.value?.categoryList?.find { it.id == categoryId }
-    }
 }
 

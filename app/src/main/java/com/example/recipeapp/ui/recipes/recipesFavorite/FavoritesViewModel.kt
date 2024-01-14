@@ -25,6 +25,11 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val allKey = allPreferences.map { it.toInt() }.toSet()
         viewModelScope.launch {
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
+
+            filteredRecipes?.forEach {
+                it.imageUrl = "https://recipes.androidsprint.ru/api/images/${it.imageUrl}"
+            }
+
             _favoritesUIState.postValue(FavoritesUIState(
                 recipe = filteredRecipes,
             ))

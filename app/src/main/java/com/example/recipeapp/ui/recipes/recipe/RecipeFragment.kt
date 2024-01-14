@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 
@@ -40,7 +41,16 @@ class RecipeFragment : Fragment() {
         viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 tvHeaderRecipe.text = state.recipe?.title.toString()
-                ivHeaderRecipe.setImageDrawable(state.recipeImage)
+
+                context?.let {
+                    Glide
+                        .with(it)
+                        .load(state.recipeImage)
+                        .centerCrop()
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(ivHeaderRecipe)
+                }
 
                 addFavorites(state)
 
