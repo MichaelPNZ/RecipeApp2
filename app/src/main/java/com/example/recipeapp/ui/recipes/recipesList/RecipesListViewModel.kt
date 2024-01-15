@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.launch
@@ -20,10 +21,10 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             val recipesList = recipesRepository.getRecipesByCategoryId(categoryId)
             val currentCategory = recipesRepository.getCategoryById(categoryId.toString())
-            val categoryImageLink = "https://recipes.androidsprint.ru/api/images/${currentCategory?.imageUrl}"
+            val categoryImageLink = "${BASE_URL}images/${currentCategory?.imageUrl}"
 
             recipesList?.forEach {
-                it.imageUrl = "https://recipes.androidsprint.ru/api/images/${it.imageUrl}"
+                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
             }
 
             _recipesListUIState.postValue(RecipesListUIState(

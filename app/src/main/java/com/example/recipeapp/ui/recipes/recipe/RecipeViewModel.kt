@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.data.RecipesRepository
@@ -23,7 +24,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
             val recipe = recipesRepository.getRecipeById(recipeId.toString())
-            val drawable = "https://recipes.androidsprint.ru/api/images/${recipe?.imageUrl}"
+            val drawable = "${BASE_URL}images/${recipe?.imageUrl}"
 
             _recipeUIState.postValue(RecipeUIState(
                 recipe = recipe,

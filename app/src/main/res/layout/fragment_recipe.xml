@@ -39,14 +39,16 @@
             <TextView
                 android:id="@+id/tvHeaderRecipe"
                 style="@style/StyleTitle20VioletColor"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_main"
                 android:layout_marginBottom="@dimen/space_main"
+                android:layout_marginEnd="@dimen/space_main"
                 android:background="@drawable/shape_drawable"
                 android:text="категория"
                 app:layout_constraintBottom_toBottomOf="@+id/ivHeaderRecipe"
                 app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipe"
+                app:layout_constraintEnd_toEndOf="@+id/ivHeaderRecipe"
                 tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

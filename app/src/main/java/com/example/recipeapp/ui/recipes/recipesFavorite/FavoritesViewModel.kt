@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.data.RecipesRepository
@@ -27,7 +28,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
 
             filteredRecipes?.forEach {
-                it.imageUrl = "https://recipes.androidsprint.ru/api/images/${it.imageUrl}"
+                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
             }
 
             _favoritesUIState.postValue(FavoritesUIState(

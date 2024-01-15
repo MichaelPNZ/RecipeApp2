@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
+import kotlinx.coroutines.launch
+
 
 class CategoriesViewModel : ViewModel() {
 
@@ -20,7 +22,7 @@ class CategoriesViewModel : ViewModel() {
             val categoryList = recipesRepository.getCategories()
 
             categoryList?.forEach {
-                it.imageUrl = "https://recipes.androidsprint.ru/api/images/${it.imageUrl}"
+                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
             }
 
             _categoriesUIState.value = categoryList?.let {
