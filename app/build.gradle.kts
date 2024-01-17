@@ -49,8 +49,9 @@ dependencies {
     val fragment_version = "1.6.2"
     val nav_version = "2.7.6"
 
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
