@@ -8,15 +8,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+
 
 class RecipesRepository {
 
+
     private val recipeApiService: RecipeApiService by lazy {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
         val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://recipes.androidsprint.ru/api/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(Json.asConverterFactory(contentType))
+            .client(client)
             .build()
 
         retrofit.create(RecipeApiService::class.java)
@@ -28,7 +39,7 @@ class RecipesRepository {
                 val recipe = recipeApiService.getRecipeById(id).execute().body()
                 recipe
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipeById", e)
                 null
             }
         }
@@ -41,7 +52,7 @@ class RecipesRepository {
                 val recipes = recipeApiService.getRecipesByIds(sortToString).execute().body()
                 recipes
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipesByIds", e)
                 null
             }
         }
@@ -53,7 +64,7 @@ class RecipesRepository {
                 val category = recipeApiService.getCategoryById(id).execute().body()
                 category
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching categoryById", e)
                 null
             }
         }
@@ -65,7 +76,7 @@ class RecipesRepository {
                 val recipes = recipeApiService.getRecipesByCategoryId(groupId).execute().body()
                 recipes
             } catch (e: Exception) {
-                Log.e("!!!", "Error fetching categories", e)
+                Log.e("!!!", "Error fetching recipesByCategoryId", e)
                 null
             }
         }

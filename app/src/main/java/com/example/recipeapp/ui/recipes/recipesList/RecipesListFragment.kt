@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment() {
@@ -37,7 +39,16 @@ class RecipesListFragment : Fragment() {
         viewModel.recipesListUIState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 tvHeaderRecipeCategory.text = state.categoryName
-                ivHeaderRecipeCategory.setImageDrawable(state.categoryImage)
+
+                context?.let {
+                    Glide
+                        .with(it)
+                        .load(state.categoryImageLink)
+                        .centerCrop()
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(ivHeaderRecipeCategory)
+                }
 
                 recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
                     override fun onItemClick(categoryId: Int) {
@@ -47,6 +58,7 @@ class RecipesListFragment : Fragment() {
 
                 recipesListAdapter.dataSet = state?.recipesList ?: emptyList()
                 rvRecipes.adapter = recipesListAdapter
+
             }
         }
         viewModel.loadRecipesList(recipeListFragmentArgs.categoryId)

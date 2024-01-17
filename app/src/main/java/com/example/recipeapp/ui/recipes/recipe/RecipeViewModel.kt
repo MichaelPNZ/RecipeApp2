@@ -2,18 +2,16 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.FAVORITES_KEY
 import com.example.recipeapp.data.PREF_NAME
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.launch
-import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,13 +24,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
             val recipe = recipesRepository.getRecipeById(recipeId.toString())
-            var drawable: Drawable? = null
-            try {
-                val inputStream: InputStream? = recipe?.imageUrl?.let { appContext.assets?.open(it) }
-                drawable = Drawable.createFromStream(inputStream, null)
-            } catch (ex: Exception) {
-                Log.e("mylog", "Error: ${ex.stackTraceToString()}")
-            }
+            val drawable = "${BASE_URL}images/${recipe?.imageUrl}"
 
             _recipeUIState.postValue(RecipeUIState(
                 recipe = recipe,
@@ -91,7 +83,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         var recipe: Recipe? = null,
         var isFavorite: Boolean = false,
         var portionsCount: Int = 1,
-        val recipeImage: Drawable? = null,
+        val recipeImage: String? = null,
     )
 
 }
