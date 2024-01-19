@@ -36,6 +36,12 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun initUI() {
+        recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
+        })
+        binding.rvRecipes.adapter = recipesListAdapter
         viewModel.recipesListUIState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 tvHeaderRecipeCategory.text = state.categoryName
@@ -49,16 +55,7 @@ class RecipesListFragment : Fragment() {
                         .error(R.drawable.img_error)
                         .into(ivHeaderRecipeCategory)
                 }
-
-                recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
-                    override fun onItemClick(categoryId: Int) {
-                        openRecipesByCategoryId(categoryId)
-                    }
-                })
-
-                recipesListAdapter.dataSet = state?.recipesList ?: emptyList()
-                rvRecipes.adapter = recipesListAdapter
-
+                recipesListAdapter.submitList(state?.recipesList ?: emptyList())
             }
         }
         viewModel.loadRecipesList(recipeListFragmentArgs.categoryId)

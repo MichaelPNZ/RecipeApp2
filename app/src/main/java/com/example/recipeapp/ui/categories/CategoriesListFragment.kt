@@ -31,16 +31,15 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initRecycler() {
+        categoriesListAdapter.setOnItemClickListener(object :
+            CategoriesListAdapter.OnItemClickListener {
+            override fun onItemClick(categoryId: Int) {
+                openRecipesByCategoryId(categoryId)
+            }
+        })
+        binding.rvCategories.adapter = categoriesListAdapter
         viewModel.categoriesUIState.observe(viewLifecycleOwner) { state ->
-
-            categoriesListAdapter.setOnItemClickListener(object :
-                CategoriesListAdapter.OnItemClickListener {
-                override fun onItemClick(categoryId: Int) {
-                    openRecipesByCategoryId(categoryId)
-                }
-            })
-            categoriesListAdapter.dataSet = state?.categoryList ?: emptyList()
-            binding.rvCategories.adapter = categoriesListAdapter
+            categoriesListAdapter.submitList(state?.categoryList ?: emptyList())
         }
         viewModel.loadCategories()
     }

@@ -32,19 +32,18 @@ class FavoritesFragment: Fragment() {
     }
 
     private fun initRecycler() {
+        favoritesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
+            override fun onItemClick(categoryId: Int) {
+                openRecipeByRecipeId(categoryId)
+            }
+        })
+        binding.rvFavorites.adapter = favoritesListAdapter
         viewModel.favoritesUIState.observe(viewLifecycleOwner) { state ->
-            favoritesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
-                override fun onItemClick(categoryId: Int) {
-                    openRecipeByRecipeId(categoryId)
-                }
-            })
 
             with(binding) {
-                if (state.recipe?.isEmpty() == true) tvFavoritesFragment.visibility = View.VISIBLE
+                if (state.recipe == null) tvFavoritesFragment.visibility = View.VISIBLE
                 else tvFavoritesFragment.visibility = View.GONE
-
-                favoritesListAdapter.dataSet = state?.recipe ?: emptyList()
-                rvFavorites.adapter = favoritesListAdapter
+                favoritesListAdapter.submitList(state?.recipe ?: emptyList())
             }
         }
         viewModel.loadFavoritesRecipes()

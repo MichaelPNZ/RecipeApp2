@@ -38,6 +38,14 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initUI() {
+        val seekBar = binding.seekBar
+        seekBar.setOnSeekBarChangeListener(IngredientsCountChooseSeekbar { progress ->
+            viewModel.onChangePortions(progress)
+            ingredientsAdapter.updateIngredients(progress)
+        })
+
+        binding.rvMethod.adapter = methodAdapter
+        binding.rvIngredients.adapter = ingredientsAdapter
         viewModel.recipeUIState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 tvHeaderRecipe.text = state.recipe?.title.toString()
@@ -53,20 +61,9 @@ class RecipeFragment : Fragment() {
                 }
 
                 addFavorites(state)
-
-                val seekBar = seekBar
-
-                seekBar.setOnSeekBarChangeListener(IngredientsCountChooseSeekbar { progress ->
-                    viewModel.onChangePortions(progress)
-                    ingredientsAdapter.updateIngredients(progress)
-                })
-
-                ingredientsAdapter.dataSet = state.recipe?.ingredients ?: emptyList()
-                methodAdapter.dataSet = state.recipe?.method ?: emptyList()
-
+                ingredientsAdapter.submitList(state.recipe?.ingredients ?: emptyList())
+                methodAdapter.submitList(state.recipe?.method ?: emptyList())
                 tvSeekBarQuantity.text = state.portionsCount.toString()
-                rvMethod.adapter = methodAdapter
-                rvIngredients.adapter = ingredientsAdapter
             }
         }
         viewModel.loadRecipe(recipeFragmentArgs.recipeId)

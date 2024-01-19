@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvIngredientsItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,8 +10,7 @@
         android:id="@+id/tvIngredientDescription"
         style="@style/StyleTitle14GrayColorCAPS"
         android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:text="@string/mock_category" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tvIngredientQuantity"
@@ -20,8 +18,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="end"
-        android:text="10 шт."
-        tools:ignore="HardcodedText" />
+        android:gravity="end"/>
 
 </LinearLayout>
