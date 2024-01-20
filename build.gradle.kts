@@ -4,4 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
     id("androidx.navigation.safeargs.kotlin") version "2.7.6" apply false
     kotlin("plugin.serialization") version "1.9.21" apply false
+    kotlin("kapt") version "1.9.22" apply false
+
 }
