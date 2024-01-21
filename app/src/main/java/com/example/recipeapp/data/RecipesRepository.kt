@@ -42,9 +42,9 @@ class RecipesRepository(context: Context) {
         retrofit.create(RecipeApiService::class.java)
     }
 
-    suspend fun insertDao(category: Category) {
+    suspend fun insertCategoriesIntoCache(categories: List<Category>) {
         withContext(Dispatchers.IO) {
-            categoriesDao.insert(category)
+            categoriesDao.insert(categories)
         }
     }
 

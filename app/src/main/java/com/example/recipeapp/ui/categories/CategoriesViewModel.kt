@@ -35,7 +35,10 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
                         categoryList = it
                     )
                 }
-                _categoriesUIState.value?.categoryList?.forEach { recipesRepository.insertDao(it)}
+
+                _categoriesUIState.value?.categoryList?.let {
+                    recipesRepository.insertCategoriesIntoCache(it)
+                }
             } else {
                 categoryListCache.forEach {
                     it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
