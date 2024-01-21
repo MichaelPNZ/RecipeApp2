@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:background="@drawable/bcg_categories"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -28,10 +27,8 @@
             android:layout_marginStart="@dimen/space_main"
             android:layout_marginBottom="@dimen/space_main"
             android:background="@drawable/shape_drawable"
-            android:text="категория"
             app:layout_constraintBottom_toBottomOf="@+id/ivHeaderRecipeCategory"
-            app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipeCategory"
-            tools:ignore="HardcodedText" />
+            app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipeCategory" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

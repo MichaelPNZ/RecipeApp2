@@ -18,7 +18,6 @@
                 android:id="@+id/ivHeaderRecipe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bcg_categories"
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
 
@@ -45,11 +44,9 @@
                 android:layout_marginBottom="@dimen/space_main"
                 android:layout_marginEnd="@dimen/space_main"
                 android:background="@drawable/shape_drawable"
-                android:text="категория"
                 app:layout_constraintBottom_toBottomOf="@+id/ivHeaderRecipe"
                 app:layout_constraintStart_toStartOf="@+id/ivHeaderRecipe"
-                app:layout_constraintEnd_toEndOf="@+id/ivHeaderRecipe"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintEnd_toEndOf="@id/ivHeaderRecipe"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,9 +81,7 @@
                     style="@style/StyleTitle16GrayColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_6dp"
-                    android:text="1"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginStart="@dimen/space_6dp"/>
 
             </LinearLayout>
 

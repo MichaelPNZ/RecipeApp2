@@ -24,6 +24,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadFavoritesRecipes() {
         val allPreferences = getFavorites()
         val allKey = allPreferences.map { it.toInt() }.toSet()
+
         viewModelScope.launch {
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
 

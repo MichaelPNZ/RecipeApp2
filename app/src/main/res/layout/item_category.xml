@@ -21,7 +21,6 @@
             android:id="@+id/ivCategoryImage"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:background="@drawable/bcg_categories"
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"/>
 
@@ -30,7 +29,6 @@
             style="@style/StyleTitle14VioletColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mock_category"
             android:layout_marginTop="@dimen/space_main_half"
             android:layout_marginStart="@dimen/space_main_half"
             android:layout_marginEnd="@dimen/space_main_half"/>
@@ -40,7 +38,6 @@
             style="@style/StyleTitle12GrayColor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/mock_description"
             android:layout_margin="@dimen/space_main_half"/>
 
     </LinearLayout>

@@ -4,13 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 
-class MethodAdapter(
-    var dataSet: List<String> = emptyList()
-) : RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
+class MethodAdapter : ListAdapter<String, MethodAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem.count() == oldItem.count()
+        }
 
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+) {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvMethodDescription: TextView
 
@@ -26,12 +36,10 @@ class MethodAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItem = dataSet[position]
+        val currentItem = getItem(position)
 
         with(viewHolder) {
             tvMethodDescription.text = "${position + 1}. $currentItem"
         }
     }
-
-    override fun getItemCount() = dataSet.size
 }
