@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     kotlin("plugin.serialization")
+    id("com.google.devtools.ksp") version "1.9.0-1.0.13"
 }
 
 android {
@@ -48,6 +49,10 @@ android {
 dependencies {
     val fragment_version = "1.6.2"
     val nav_version = "2.7.6"
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
