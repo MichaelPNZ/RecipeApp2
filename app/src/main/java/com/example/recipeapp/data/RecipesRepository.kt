@@ -1,6 +1,8 @@
 package com.example.recipeapp.data
 
+import android.content.Context
 import android.util.Log
+import androidx.room.Room
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -13,8 +15,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 
-class RecipesRepository {
+class RecipesRepository(context: Context) {
 
+    private val db: AppDatabase = Room.databaseBuilder(
+        context,
+        AppDatabase::class.java,
+        "database-categories"
+    ).build()
+
+    private val categoriesDao = db.categoriesDao()
 
     private val recipeApiService: RecipeApiService by lazy {
         val logging = HttpLoggingInterceptor()
@@ -31,6 +40,18 @@ class RecipesRepository {
             .build()
 
         retrofit.create(RecipeApiService::class.java)
+    }
+
+    suspend fun insertDao(category: Category) {
+        withContext(Dispatchers.IO) {
+            categoriesDao.insert(category)
+        }
+    }
+
+    suspend fun getCategoriesFromCache(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesDao.getAll()
+        }
     }
 
     suspend fun getRecipeById(id: String?): Recipe? {
