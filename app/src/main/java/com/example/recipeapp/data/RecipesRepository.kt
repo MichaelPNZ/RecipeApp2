@@ -54,6 +54,12 @@ class RecipesRepository(context: Context) {
         }
     }
 
+    suspend fun deleteAllFromCache() {
+        withContext(Dispatchers.IO) {
+            categoriesDao.deleteAll()
+        }
+    }
+
     suspend fun getRecipeById(id: String?): Recipe? {
         return withContext(Dispatchers.IO) {
             try {

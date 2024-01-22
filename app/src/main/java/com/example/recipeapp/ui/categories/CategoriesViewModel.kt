@@ -10,7 +10,6 @@ import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import kotlinx.coroutines.launch
 
-
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val appContext = application
@@ -22,30 +21,27 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     fun loadCategories() {
         viewModelScope.launch {
             val categoryListCache = recipesRepository.getCategoriesFromCache()
+            val categoryList = recipesRepository.getCategories()
 
-            if (categoryListCache.isEmpty()) {
-                val categoryList = recipesRepository.getCategories()
-
-                categoryList?.forEach {
-                    it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
-                }
-
-                _categoriesUIState.value = categoryList?.let {
-                    CategoriesUIState(
-                        categoryList = it
+            if (categoryListCache.isEmpty() || categoryListCache != categoryList) {
+                categoryList?.let {
+                    val updateList = it.map { category ->
+                        category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
+                    }
+                    _categoriesUIState.value = CategoriesUIState(
+                        categoryList = updateList
                     )
-                }
-
-                _categoriesUIState.value?.categoryList?.let {
-                    recipesRepository.insertCategoriesIntoCache(it)
+                    recipesRepository.insertCategoriesIntoCache(categoryList)
                 }
             } else {
-                categoryListCache.forEach {
-                    it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
+                categoryListCache.let {
+                    val updateList = it.map { category ->
+                        category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
+                    }
+                    _categoriesUIState.value = CategoriesUIState(
+                        categoryList = updateList
+                    )
                 }
-                _categoriesUIState.value = CategoriesUIState(
-                    categoryList = categoryListCache
-                )
             }
         }
     }

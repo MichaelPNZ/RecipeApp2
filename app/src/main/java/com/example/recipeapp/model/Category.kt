@@ -12,5 +12,5 @@ data class Category(
     @ColumnInfo(name = "id")val id: Int,
     @ColumnInfo(name = "title")val title: String,
     @ColumnInfo(name = "description")val description: String,
-    @ColumnInfo(name = "image_url")var imageUrl: String,
+    @ColumnInfo(name = "image_url")val imageUrl: String,
 )

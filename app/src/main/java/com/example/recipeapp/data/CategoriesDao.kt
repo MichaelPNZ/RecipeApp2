@@ -1,9 +1,6 @@
 package com.example.recipeapp.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.recipeapp.model.Category
 
 @Dao
@@ -14,4 +11,7 @@ interface CategoriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(categories: List<Category>)
+
+    @Query("DELETE FROM category")
+    fun deleteAll()
 }
