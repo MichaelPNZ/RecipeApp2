@@ -28,13 +28,21 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch {
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
 
-            filteredRecipes?.forEach {
-                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
+            filteredRecipes?.let {
+                val updateList = it.map { category ->
+                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
+                }
+                _favoritesUIState.postValue(FavoritesUIState(
+                    recipe = updateList,
+                ))
             }
-
-            _favoritesUIState.postValue(FavoritesUIState(
-                recipe = filteredRecipes,
-            ))
+//            filteredRecipes?.forEach {
+//                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
+//            }
+//
+//            _favoritesUIState.postValue(FavoritesUIState(
+//                recipe = filteredRecipes,
+//            ))
         }
     }
 

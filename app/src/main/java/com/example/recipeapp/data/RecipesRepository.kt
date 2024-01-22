@@ -3,6 +3,8 @@ package com.example.recipeapp.data
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -17,13 +19,27 @@ import retrofit2.Retrofit
 
 class RecipesRepository(context: Context) {
 
+    private val migration1to2: Migration = object : Migration(1, 2) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS `Recipe` " +
+                    "(`id` INTEGER NOT NULL, " +
+                    "`title` TEXT NOT NULL, " +
+                    "`ingredients` TEXT NOT NULL, " +
+                    "`method` TEXT NOT NULL, " +
+                    "`imageUrl` TEXT NOT NULL, " +
+                    "PRIMARY KEY(`id`))")
+        }
+    }
     private val db: AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java,
         "database-categories"
-    ).build()
+    )
+        .addMigrations(migration1to2)
+        .build()
 
     private val categoriesDao = db.categoriesDao()
+    private val recipesDao = db.recipesDao()
 
     private val recipeApiService: RecipeApiService by lazy {
         val logging = HttpLoggingInterceptor()
@@ -42,6 +58,24 @@ class RecipesRepository(context: Context) {
         retrofit.create(RecipeApiService::class.java)
     }
 
+    suspend fun insertRecipesIntoCache(recipes: List<Recipe>) {
+        withContext(Dispatchers.IO) {
+            recipesDao.insert(recipes)
+        }
+    }
+
+    suspend fun getRecipesFromCache(): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipesByCategoryId()
+        }
+    }
+
+    suspend fun deleteAllRecipesListFromCache() {
+        withContext(Dispatchers.IO) {
+            recipesDao.deleteAll()
+        }
+    }
+
     suspend fun insertCategoriesIntoCache(categories: List<Category>) {
         withContext(Dispatchers.IO) {
             categoriesDao.insert(categories)
@@ -54,7 +88,7 @@ class RecipesRepository(context: Context) {
         }
     }
 
-    suspend fun deleteAllFromCache() {
+    suspend fun deleteAllCategoriesFromCache() {
         withContext(Dispatchers.IO) {
             categoriesDao.deleteAll()
         }
