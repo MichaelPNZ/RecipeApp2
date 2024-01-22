@@ -3,8 +3,6 @@ package com.example.recipeapp.data
 import android.content.Context
 import android.util.Log
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -16,27 +14,13 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-
 class RecipesRepository(context: Context) {
 
-    private val migration1to2: Migration = object : Migration(1, 2) {
-        override fun migrate(db: SupportSQLiteDatabase) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS `Recipe` " +
-                    "(`id` INTEGER NOT NULL, " +
-                    "`title` TEXT NOT NULL, " +
-                    "`ingredients` TEXT NOT NULL, " +
-                    "`method` TEXT NOT NULL, " +
-                    "`imageUrl` TEXT NOT NULL, " +
-                    "PRIMARY KEY(`id`))")
-        }
-    }
     private val db: AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java,
         "database-categories"
-    )
-        .addMigrations(migration1to2)
-        .build()
+    ).build()
 
     private val categoriesDao = db.categoriesDao()
     private val recipesDao = db.recipesDao()
