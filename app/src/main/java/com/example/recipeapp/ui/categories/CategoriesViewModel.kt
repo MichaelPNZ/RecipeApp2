@@ -21,27 +21,24 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     fun loadCategories() {
         viewModelScope.launch {
             val categoryListCache = recipesRepository.getCategoriesFromCache()
-            val categoryList = recipesRepository.getCategories()
+            categoryListCache.let {
+                val updateList = it.map { category ->
+                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
+                }
+                _categoriesUIState.value = CategoriesUIState(
+                    categoryList = updateList
+                )
+            }
 
-            if (categoryListCache.isEmpty() || categoryListCache != categoryList) {
-                categoryList?.let {
-                    val updateList = it.map { category ->
-                        category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
-                    }
-                    _categoriesUIState.value = CategoriesUIState(
-                        categoryList = updateList
-                    )
-                    recipesRepository.insertCategoriesIntoCache(categoryList)
+            val categoryList = recipesRepository.getCategories()
+            categoryList?.let {
+                val updateList = it.map { category ->
+                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
                 }
-            } else {
-                categoryListCache.let {
-                    val updateList = it.map { category ->
-                        category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
-                    }
-                    _categoriesUIState.value = CategoriesUIState(
-                        categoryList = updateList
-                    )
-                }
+                _categoriesUIState.value = CategoriesUIState(
+                    categoryList = updateList
+                )
+                recipesRepository.insertCategoriesIntoCache(it)
             }
         }
     }
