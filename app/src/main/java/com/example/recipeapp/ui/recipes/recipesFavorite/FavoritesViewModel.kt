@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val recipesRepository = RecipesRepository()
     private val appContext = application
+    private val recipesRepository = RecipesRepository(appContext)
     private val _favoritesUIState = MutableLiveData<FavoritesUIState>()
     val favoritesUIState: LiveData<FavoritesUIState>
         get() = _favoritesUIState
