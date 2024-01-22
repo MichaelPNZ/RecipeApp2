@@ -9,7 +9,7 @@ import com.example.recipeapp.model.Recipe
 @Dao
 interface RecipesDao {
     @Query("SELECT * FROM recipe")
-    fun getRecipesByCategoryId(): List<Recipe>
+    fun getAll(): List<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(recipes: List<Recipe>)

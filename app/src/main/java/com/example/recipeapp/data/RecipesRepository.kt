@@ -50,7 +50,7 @@ class RecipesRepository(context: Context) {
 
     suspend fun getRecipesFromCache(): List<Recipe> {
         return withContext(Dispatchers.IO) {
-            recipesDao.getRecipesByCategoryId()
+            recipesDao.getAll()
         }
     }
 
