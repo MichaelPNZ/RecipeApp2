@@ -21,25 +21,25 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     fun loadCategories() {
         viewModelScope.launch {
             val categoryListCache = recipesRepository.getCategoriesFromCache()
-            categoryListCache.let {
-                val updateList = it.map { category ->
-                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
-                }
-                _categoriesUIState.value = CategoriesUIState(
-                    categoryList = updateList
-                )
-            }
+            updateUIState(categoryListCache)
 
             val categoryList = recipesRepository.getCategories()
-            categoryList?.let {
-                val updateList = it.map { category ->
-                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
-                }
-                _categoriesUIState.value = CategoriesUIState(
-                    categoryList = updateList
-                )
-                recipesRepository.insertCategoriesIntoCache(it)
+            updateUIState(categoryList)
+
+            if (categoryList != null) {
+                recipesRepository.insertCategoriesIntoCache(categoryList)
             }
+        }
+    }
+
+    private fun updateUIState(categoryList: List<Category>?) {
+        categoryList?.let {
+            val updateList = it.map { category ->
+                category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
+            }
+            _categoriesUIState.value = CategoriesUIState(
+                categoryList = updateList
+            )
         }
     }
 
