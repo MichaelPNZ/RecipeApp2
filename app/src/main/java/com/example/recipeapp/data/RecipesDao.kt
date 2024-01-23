@@ -8,8 +8,8 @@ import com.example.recipeapp.model.Recipe
 
 @Dao
 interface RecipesDao {
-    @Query("SELECT * FROM recipe")
-    fun getAll(): List<Recipe>
+    @Query("SELECT * FROM recipe WHERE category_id = :categoryId")
+    fun getRecipeByCategoryId(categoryId: Int): List<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(recipes: List<Recipe>)

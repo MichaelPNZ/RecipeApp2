@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 @Entity
@@ -15,6 +16,7 @@ data class Recipe(
     @ColumnInfo(name = "ingredients")val ingredients: List<Ingredient>,
     @ColumnInfo(name = "method")val method: List<String>,
     @ColumnInfo(name = "imageUrl")val imageUrl: String,
+    @ColumnInfo(name = "category_id") @Transient val categoryId: Int? = null,
 )
 
 class Converters {
