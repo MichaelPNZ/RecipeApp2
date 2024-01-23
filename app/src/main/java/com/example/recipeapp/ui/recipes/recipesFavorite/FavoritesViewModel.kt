@@ -26,23 +26,21 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val allKey = allPreferences.map { it.toInt() }.toSet()
 
         viewModelScope.launch {
+            val filteredRecipesCache = recipesRepository.getRecipesByIdsFromCache(allKey)
+            updateUIState(filteredRecipesCache)
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
+            updateUIState(filteredRecipes)
+        }
+    }
 
-            filteredRecipes?.let {
-                val updateList = it.map { category ->
-                    category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
-                }
-                _favoritesUIState.postValue(FavoritesUIState(
-                    recipe = updateList,
-                ))
+    private fun updateUIState(recipeList: List<Recipe>?) {
+        recipeList?.let {
+            val updateList = it.map { category ->
+                category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
             }
-//            filteredRecipes?.forEach {
-//                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
-//            }
-//
-//            _favoritesUIState.postValue(FavoritesUIState(
-//                recipe = filteredRecipes,
-//            ))
+            _favoritesUIState.postValue(FavoritesUIState(
+                recipe = updateList,
+            ))
         }
     }
 

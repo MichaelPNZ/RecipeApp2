@@ -21,22 +21,20 @@ data class Recipe(
 
 class Converters {
     @TypeConverter
-    fun fromIngredientsList(value: List<Ingredient>?): String {
-        return value?.joinToString { "${it.quantity}:${it.unitOfMeasure}:${it.description}" } ?: ""
+    fun fromIngredientsList(list: List<Ingredient>?): String {
+        return list?.joinToString { "${it.quantity}:${it.unitOfMeasure}:${it.description}" } ?: ""
     }
 
     @TypeConverter
     fun toIngredientsList(value: String): List<Ingredient> {
-        val chunks = value.windowed(1, 2, true).chunked(3)
-        return chunks.flatMap {
-            when {
-                it.size == 3 -> listOf(Ingredient(it[0], it[1], it[2]))
-                it.isEmpty() -> emptyList()
-                else -> {
-                    emptyList()
-                }
+        val chunks = value.split(",", ":")
+        return chunks.chunked(3) { chunk ->
+            if (chunk.size == 3) {
+                Ingredient(chunk[0], chunk[1], chunk[2])
+            } else {
+                null
             }
-        }
+        }.filterNotNull()
     }
 
     @TypeConverter

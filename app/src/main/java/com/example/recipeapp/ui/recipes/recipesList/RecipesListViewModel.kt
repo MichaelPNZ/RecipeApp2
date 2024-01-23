@@ -22,7 +22,7 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
             val currentCategory = recipesRepository.getCategoryById(categoryId.toString())
             val categoryImageLink = "${BASE_URL}images/${currentCategory?.imageUrl}"
 
-            val recipeListCache = recipesRepository.getRecipesFromCache(categoryId)
+            val recipeListCache = recipesRepository.getRecipesByCategoryIdFromCache(categoryId)
             updateUIState(currentCategory?.title, categoryImageLink, recipeListCache, categoryId)
 
             val recipesList = recipesRepository.getRecipesByCategoryId(categoryId)

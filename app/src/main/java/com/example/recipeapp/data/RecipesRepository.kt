@@ -42,15 +42,27 @@ class RecipesRepository(context: Context) {
         retrofit.create(RecipeApiService::class.java)
     }
 
+    suspend fun getRecipesByIdsFromCache(recipesList: Set<Int>): List<Recipe> {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipesByIds(recipesList)
+        }
+    }
+
+    suspend fun getRecipeByIdFromCache(recipeId: Int): Recipe {
+        return withContext(Dispatchers.IO) {
+            recipesDao.getRecipeById(recipeId)
+        }
+    }
+
     suspend fun insertRecipesIntoCache(recipes: List<Recipe>) {
         withContext(Dispatchers.IO) {
             recipesDao.insert(recipes)
         }
     }
 
-    suspend fun getRecipesFromCache(categoryId: Int): List<Recipe> {
+    suspend fun getRecipesByCategoryIdFromCache(categoryId: Int): List<Recipe> {
         return withContext(Dispatchers.IO) {
-            recipesDao.getRecipeByCategoryId(categoryId)
+            recipesDao.getRecipesByCategoryId(categoryId)
         }
     }
 
