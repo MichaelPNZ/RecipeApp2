@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Serializable
 @Entity
@@ -22,28 +24,29 @@ data class Recipe(
 class Converters {
     @TypeConverter
     fun fromIngredientsList(list: List<Ingredient>?): String {
-        return list?.joinToString { "${it.quantity}:${it.unitOfMeasure}:${it.description}" } ?: ""
+        return Json.encodeToString(list ?: emptyList())
     }
 
     @TypeConverter
     fun toIngredientsList(value: String): List<Ingredient> {
-        val chunks = value.split(",", ":")
-        return chunks.chunked(3) { chunk ->
-            if (chunk.size == 3) {
-                Ingredient(chunk[0], chunk[1], chunk[2])
-            } else {
-                null
-            }
-        }.filterNotNull()
+        return try {
+            Json.decodeFromString(value)
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
     @TypeConverter
-    fun fromMethodList(value: List<String>?): String {
-        return value?.joinToString(":") ?: ""
+    fun fromMethodList(list: List<String>?): String {
+        return Json.encodeToString(list ?: emptyList())
     }
 
     @TypeConverter
     fun toMethodList(value: String): List<String> {
-        return value.split(":")
+        return try {
+            Json.decodeFromString(value)
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 }
