@@ -30,9 +30,14 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
 
             recipesList?.let { recipe ->
                 val updateList = recipe.map {
-                    it.copy(categoryId = categoryId)
+                    it.copy(
+                        categoryId = categoryId,
+                        isFavorite = recipeListCache.any { cacheRecipe ->
+                            cacheRecipe.id == it.id && cacheRecipe.isFavorite == true
+                        }
+                    )
                 }
-                recipesRepository.insertRecipesIntoCache(updateList)
+                recipesRepository.insertRecipesListIntoCache(updateList)
             }
         }
     }

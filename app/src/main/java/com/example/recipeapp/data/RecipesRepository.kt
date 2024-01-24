@@ -21,9 +21,7 @@ class RecipesRepository(context: Context) {
         context,
         AppDatabase::class.java,
         "database-categories"
-    )
-        .fallbackToDestructiveMigration()
-        .build()
+    ).build()
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val categoriesDao = db.categoriesDao()
@@ -46,9 +44,9 @@ class RecipesRepository(context: Context) {
         retrofit.create(RecipeApiService::class.java)
     }
 
-    suspend fun getRecipesByIdsFromCache(recipesList: Set<Int>): List<Recipe> {
+    suspend fun getRecipeByFavorite(): List<Recipe> {
         return withContext(ioDispatcher) {
-            recipesDao.getRecipesByIds(recipesList)
+            recipesDao.getRecipeByFavorite()
         }
     }
 
@@ -58,9 +56,9 @@ class RecipesRepository(context: Context) {
         }
     }
 
-    suspend fun insertRecipesIntoCache(recipes: List<Recipe>) {
+    suspend fun insertRecipesListIntoCache(recipes: List<Recipe>) {
         withContext(ioDispatcher) {
-            recipesDao.insert(recipes)
+            recipesDao.insertRecipeList(recipes)
         }
     }
 
@@ -79,6 +77,12 @@ class RecipesRepository(context: Context) {
     suspend fun insertCategoriesIntoCache(categories: List<Category>) {
         withContext(ioDispatcher) {
             categoriesDao.insert(categories)
+        }
+    }
+
+    suspend fun insertRecipeIntoCache(recipe: Recipe) {
+        withContext(ioDispatcher) {
+            recipesDao.insertRecipe(recipe)
         }
     }
 

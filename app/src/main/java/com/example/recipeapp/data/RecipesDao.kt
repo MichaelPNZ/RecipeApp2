@@ -14,11 +14,17 @@ interface RecipesDao {
     @Query("SELECT * FROM recipe WHERE id = :recipeId")
     fun getRecipeById(recipeId: Int): Recipe
 
+    @Query("SELECT * FROM recipe WHERE isFavorite = 1")
+    fun getRecipeByFavorite(): List<Recipe>
+
     @Query("SELECT * FROM recipe WHERE id IN (:recipeId)")
     fun getRecipesByIds(recipeId: Set<Int>): List<Recipe>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(recipes: List<Recipe>)
+    fun insertRecipeList(recipes: List<Recipe>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertRecipe(recipe: Recipe)
 
     @Query("DELETE FROM recipe")
     fun deleteAll()
