@@ -19,20 +19,34 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
 
     fun loadRecipesList(categoryId: Int) {
         viewModelScope.launch {
-            val recipesList = recipesRepository.getRecipesByCategoryId(categoryId)
             val currentCategory = recipesRepository.getCategoryById(categoryId.toString())
             val categoryImageLink = "${BASE_URL}images/${currentCategory?.imageUrl}"
 
-            recipesList?.forEach {
-                it.imageUrl = "${BASE_URL}images/${it.imageUrl}"
+            val recipeListCache = recipesRepository.getRecipesByCategoryIdFromCache(categoryId)
+            updateUIState(currentCategory?.title, categoryImageLink, recipeListCache, categoryId)
+
+            val recipesList = recipesRepository.getRecipesByCategoryId(categoryId)
+            updateUIState(currentCategory?.title, categoryImageLink, recipesList, categoryId)
+
+            recipesList?.let { recipe ->
+                val updateList = recipe.map {
+                    it.copy(categoryId = categoryId)
+                }
+                recipesRepository.insertRecipesIntoCache(updateList)
             }
+        }
+    }
 
+    private fun updateUIState(categoryName: String?, categoryImageLink: String, recipesList: List<Recipe>?, categoryId: Int) {
+        recipesList?.let {
+            val updateList = it.map { category ->
+                category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}", categoryId = categoryId)
+            }
             _recipesListUIState.postValue(RecipesListUIState(
-                categoryName = currentCategory?.title,
+                categoryName = categoryName,
                 categoryImageLink = categoryImageLink,
-                recipesList = recipesList,
+                recipesList = updateList,
             ))
-
         }
     }
 

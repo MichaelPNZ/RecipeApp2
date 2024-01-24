@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -14,16 +15,19 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-
 class RecipesRepository(context: Context) {
 
     private val db: AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java,
         "database-categories"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val categoriesDao = db.categoriesDao()
+    private val recipesDao = db.recipesDao()
 
     private val recipeApiService: RecipeApiService by lazy {
         val logging = HttpLoggingInterceptor()
@@ -42,26 +46,56 @@ class RecipesRepository(context: Context) {
         retrofit.create(RecipeApiService::class.java)
     }
 
+    suspend fun getRecipesByIdsFromCache(recipesList: Set<Int>): List<Recipe> {
+        return withContext(ioDispatcher) {
+            recipesDao.getRecipesByIds(recipesList)
+        }
+    }
+
+    suspend fun getRecipeByIdFromCache(recipeId: Int): Recipe {
+        return withContext(ioDispatcher) {
+            recipesDao.getRecipeById(recipeId)
+        }
+    }
+
+    suspend fun insertRecipesIntoCache(recipes: List<Recipe>) {
+        withContext(ioDispatcher) {
+            recipesDao.insert(recipes)
+        }
+    }
+
+    suspend fun getRecipesByCategoryIdFromCache(categoryId: Int): List<Recipe> {
+        return withContext(ioDispatcher) {
+            recipesDao.getRecipesByCategoryId(categoryId)
+        }
+    }
+
+    suspend fun deleteAllRecipesListFromCache() {
+        withContext(ioDispatcher) {
+            recipesDao.deleteAll()
+        }
+    }
+
     suspend fun insertCategoriesIntoCache(categories: List<Category>) {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             categoriesDao.insert(categories)
         }
     }
 
     suspend fun getCategoriesFromCache(): List<Category> {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             categoriesDao.getAll()
         }
     }
 
-    suspend fun deleteAllFromCache() {
-        withContext(Dispatchers.IO) {
+    suspend fun deleteAllCategoriesFromCache() {
+        withContext(ioDispatcher) {
             categoriesDao.deleteAll()
         }
     }
 
     suspend fun getRecipeById(id: String?): Recipe? {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             try {
                 val recipe = recipeApiService.getRecipeById(id).execute().body()
                 recipe
@@ -73,7 +107,7 @@ class RecipesRepository(context: Context) {
     }
 
     suspend fun getRecipesByIds(set: Set<Int>): List<Recipe>? {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             try {
                 val sortToString = set.joinToString(separator = ",")
                 val recipes = recipeApiService.getRecipesByIds(sortToString).execute().body()
@@ -86,7 +120,7 @@ class RecipesRepository(context: Context) {
     }
 
     suspend fun getCategoryById(id: String?): Category? {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             try {
                 val category = recipeApiService.getCategoryById(id).execute().body()
                 category
@@ -98,7 +132,7 @@ class RecipesRepository(context: Context) {
     }
 
     suspend fun getRecipesByCategoryId(groupId: Int): List<Recipe>? {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             try {
                 val recipes = recipeApiService.getRecipesByCategoryId(groupId).execute().body()
                 recipes
@@ -110,7 +144,7 @@ class RecipesRepository(context: Context) {
     }
 
     suspend fun getCategories(): List<Category>? {
-        return withContext(Dispatchers.IO) {
+        return withContext(ioDispatcher) {
             try {
                 val categories = recipeApiService.getCategories().execute().body()
                 categories

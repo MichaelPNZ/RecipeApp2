@@ -23,15 +23,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
+            val recipeCache = recipesRepository.getRecipeByIdFromCache(recipeId)
+            updateUIState(recipeCache)
             val recipe = recipesRepository.getRecipeById(recipeId.toString())
-            val drawable = "${BASE_URL}images/${recipe?.imageUrl}"
-
-            _recipeUIState.postValue(RecipeUIState(
-                recipe = recipe,
-                isFavorite = getFavorites().contains(recipeId.toString()),
-                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
-                recipeImage = drawable
-            ))
+            updateUIState(recipe)
         }
     }
 
@@ -76,6 +71,17 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         with(sharedPrefs.edit()) {
             putStringSet(FAVORITES_KEY, favorites)
             apply()
+        }
+    }
+
+    private fun updateUIState(recipe: Recipe?) {
+        if (recipe != null) {
+            _recipeUIState.postValue(RecipeUIState(
+                recipe = recipe,
+                isFavorite = getFavorites().contains(recipe.id.toString()),
+                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
+                recipeImage = "${BASE_URL}images/${recipe.imageUrl}"
+            ))
         }
     }
 
