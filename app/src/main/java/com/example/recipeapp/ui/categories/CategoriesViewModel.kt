@@ -24,12 +24,9 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
             updateUIState(categoryListCache)
 
             val categoryList = recipesRepository.getCategories()
-            if (categoryList != null) {
-                updateUIState(categoryList)
-            }
-
-            if (categoryList != null) {
-                recipesRepository.insertCategoriesIntoCache(categoryList)
+            categoryList?.apply {
+                updateUIState(this)
+                recipesRepository.insertCategoriesIntoCache(this)
             }
         }
     }
