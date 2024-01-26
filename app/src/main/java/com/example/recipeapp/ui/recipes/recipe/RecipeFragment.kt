@@ -72,7 +72,7 @@ class RecipeFragment : Fragment() {
     private fun addFavorites(state: RecipeViewModel.RecipeUIState) {
         val addFavoritesButton: ImageButton = binding.btnAddFavorite
 
-        val buttonImage = if (state.isFavorite) R.drawable.ic_heart
+        val buttonImage = if (state.recipe?.isFavorite == true) R.drawable.ic_heart
         else R.drawable.ic_heart_empty
 
         addFavoritesButton.setImageResource(buttonImage)

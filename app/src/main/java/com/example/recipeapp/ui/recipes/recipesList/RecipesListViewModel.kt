@@ -26,19 +26,26 @@ class RecipesListViewModel(application: Application) : AndroidViewModel(applicat
             updateUIState(currentCategory?.title, categoryImageLink, recipeListCache, categoryId)
 
             val recipesList = recipesRepository.getRecipesByCategoryId(categoryId)
-            updateUIState(currentCategory?.title, categoryImageLink, recipesList, categoryId)
+            if (recipesList != null) {
+                updateUIState(currentCategory?.title, categoryImageLink, recipesList, categoryId)
+            }
 
             recipesList?.let { recipe ->
                 val updateList = recipe.map {
-                    it.copy(categoryId = categoryId)
+                    it.copy(
+                        categoryId = categoryId,
+                        isFavorite = recipeListCache.any { cacheRecipe ->
+                            cacheRecipe.id == it.id && cacheRecipe.isFavorite == true
+                        }
+                    )
                 }
-                recipesRepository.insertRecipesIntoCache(updateList)
+                recipesRepository.insertRecipesListIntoCache(updateList)
             }
         }
     }
 
-    private fun updateUIState(categoryName: String?, categoryImageLink: String, recipesList: List<Recipe>?, categoryId: Int) {
-        recipesList?.let {
+    private fun updateUIState(categoryName: String?, categoryImageLink: String, recipesList: List<Recipe>, categoryId: Int) {
+        recipesList.let {
             val updateList = it.map { category ->
                 category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}", categoryId = categoryId)
             }
