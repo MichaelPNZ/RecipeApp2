@@ -19,7 +19,7 @@ data class Recipe(
     @ColumnInfo(name = "method")val method: List<String>,
     @ColumnInfo(name = "imageUrl")val imageUrl: String,
     @ColumnInfo(name = "category_id") @Transient val categoryId: Int? = null,
-    @ColumnInfo(name = "isFavorite") @Transient val isFavorite: Boolean? = false,
+    @ColumnInfo(name = "isFavorite") @Transient val isFavorite: Boolean = false,
 )
 
 class Converters {

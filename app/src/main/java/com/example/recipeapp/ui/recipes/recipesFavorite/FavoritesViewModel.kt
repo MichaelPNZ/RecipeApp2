@@ -26,12 +26,14 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
             val allKey = filteredRecipesCache.map { it.id }.toSet()
             val filteredRecipes = recipesRepository.getRecipesByIds(allKey)
-            updateUIState(filteredRecipes)
+            if (filteredRecipes != null) {
+                updateUIState(filteredRecipes)
+            }
         }
     }
 
-    private fun updateUIState(recipeList: List<Recipe>?) {
-        recipeList?.let {
+    private fun updateUIState(recipeList: List<Recipe>) {
+        recipeList.let {
             val updateList = it.map { category ->
                 category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
             }

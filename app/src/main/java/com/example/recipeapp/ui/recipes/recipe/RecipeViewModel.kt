@@ -23,16 +23,15 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         viewModelScope.launch {
             val recipeCache = recipesRepository.getRecipeByIdFromCache(recipeId)
             updateUIState(recipeCache)
-            Log.i("!!!", "$recipeCache")
             val recipe = recipesRepository.getRecipeById(recipeId.toString())
-            Log.i("!!!", "$recipe")
 
             val updatedRecipe = recipe?.copy(
                 categoryId = recipeCache.categoryId,
                 isFavorite = recipeCache.isFavorite)
-            Log.i("!!!", "$updatedRecipe")
 
-            updateUIState(updatedRecipe)
+            if (updatedRecipe != null) {
+                updateUIState(updatedRecipe)
+            }
         }
     }
 
@@ -41,7 +40,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
         viewModelScope.launch {
             val recipe = currentRecipeUIState.recipe ?: return@launch
-            val updateList = recipe.copy(isFavorite = !recipe.isFavorite!!)
+            val updateList = recipe.copy(isFavorite = !recipe.isFavorite)
             updateUIState(updateList)
             recipesRepository.insertRecipeIntoCache(updateList)
 
@@ -56,14 +55,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         _recipeUIState.value = updatedRecipeUIState
     }
 
-    private fun updateUIState(recipe: Recipe?) {
-        if (recipe != null) {
-            _recipeUIState.postValue(RecipeUIState(
-                recipe = recipe,
-                portionsCount = _recipeUIState.value?.portionsCount ?: 1,
-                recipeImage = "${BASE_URL}images/${recipe.imageUrl}"
-            ))
-        }
+    private fun updateUIState(recipe: Recipe) {
+        _recipeUIState.postValue(RecipeUIState(
+            recipe = recipe,
+            portionsCount = _recipeUIState.value?.portionsCount ?: 1,
+            recipeImage = "${BASE_URL}images/${recipe.imageUrl}"
+        ))
     }
 
     data class RecipeUIState(

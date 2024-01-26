@@ -24,7 +24,9 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
             updateUIState(categoryListCache)
 
             val categoryList = recipesRepository.getCategories()
-            updateUIState(categoryList)
+            if (categoryList != null) {
+                updateUIState(categoryList)
+            }
 
             if (categoryList != null) {
                 recipesRepository.insertCategoriesIntoCache(categoryList)
@@ -32,8 +34,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    private fun updateUIState(categoryList: List<Category>?) {
-        categoryList?.let {
+    private fun updateUIState(categoryList: List<Category>) {
+        categoryList.let {
             val updateList = it.map { category ->
                 category.copy(imageUrl = "${BASE_URL}images/${category.imageUrl}")
             }
